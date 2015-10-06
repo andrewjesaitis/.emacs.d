@@ -1,5 +1,8 @@
 ;; Customizations relating to editing a buffer.
 
+;; Use a bar cursor
+(set-default 'cursor-type 'bar)
+
 ;; Key binding to use "hippie expand" for text autocompletion
 ;; http://www.emacswiki.org/emacs/HippieExpand
 (global-set-key (kbd "M-/") 'hippie-expand)
