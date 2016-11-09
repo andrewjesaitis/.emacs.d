@@ -156,7 +156,7 @@
  '(coffee-tab-width 2)
  '(package-selected-packages
    (quote
-    (company-tern json-mode js2-mode yaml-mode web-mode tagedit smex scss-mode rainbow-delimiters projectile noflet markup-faces markdown-mode magit ido-ubiquitous haskell-mode haml-mode git-gutter flycheck exec-path-from-shell dockerfile-mode company coffee-mode clojure-mode-extra-font-locking clj-refactor ag ack-and-a-half))))
+    (less-css-mode company-tern json-mode js2-mode yaml-mode web-mode tagedit smex scss-mode rainbow-delimiters projectile noflet markup-faces markdown-mode magit ido-ubiquitous haskell-mode haml-mode git-gutter flycheck exec-path-from-shell dockerfile-mode company coffee-mode clojure-mode-extra-font-locking clj-refactor ag ack-and-a-half))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
