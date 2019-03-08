@@ -144,12 +144,15 @@
 (load "setup-clojure.el")
 (load "setup-js.el")
 (load "setup-css.el")
+(load "setup-python.el")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(coffee-tab-width 2)
+ '(elpy-rpc-ignored-buffer-size 1002400)
+ '(elpy-rpc-large-buffer-size 10000)
  '(package-selected-packages
    (quote
     (less-css-mode company-tern json-mode js2-mode yaml-mode web-mode tagedit smex scss-mode rainbow-delimiters projectile noflet markup-faces markdown-mode magit ido-ubiquitous haskell-mode haml-mode git-gutter flycheck exec-path-from-shell dockerfile-mode company coffee-mode clojure-mode-extra-font-locking clj-refactor ag ack-and-a-half))))
