@@ -25,6 +25,7 @@
                 " %l:%c  %m"))
 
 ;; typography
+(set-face-attribute 'default t :font "Inconsolata" )
 (setq-default line-spacing nil)
 (setq mac-allow-anti-aliasing t)
 (global-prettify-symbols-mode t)
