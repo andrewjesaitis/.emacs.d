@@ -105,8 +105,8 @@
 
 ;;Transparency
 ;; Make emacs transparent
-(set-frame-parameter (selected-frame) 'alpha '(85 . 50))
-(add-to-list 'default-frame-alist '(alpha . (85 . 50))))
+(set-frame-parameter (selected-frame) 'alpha '(95 . 95))
+(add-to-list 'default-frame-alist '(alpha . (95 . 95)))
 
 ;; Allow transparency to be toggled
  (defun toggle-transparency ()
@@ -119,5 +119,5 @@
                      ;; Also handle undocumented (<active> <inactive>) form.
                      ((numberp (cadr alpha)) (cadr alpha)))
                100)
-          '(85 . 50) '(100 . 100)))))
+          '(95 . 95) '(100 . 100)))))
  (global-set-key (kbd "C-c t") 'toggle-transparency)
