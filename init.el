@@ -2,6 +2,8 @@
 ;; Packages
 ;;;;
 
+(server-start)
+
 ;; Define package repositories
 (require 'package)
 (add-to-list 'package-archives
@@ -129,7 +131,13 @@
 
 ;; These customizations change the way emacs looks and disable/enable
 ;; some user interface elements
-(load "ui.el")
+(if (daemonp)
+(add-hook 'after-make-frame-functions
+          '(lambda (f)
+             (with-selected-frame f
+               (when (window-system f) (load "ui.el")))))
+(load "ui.el"))
+
 
 ;; These customizations make editing a bit nicer.
 (load "editing.el")
