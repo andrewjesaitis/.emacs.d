@@ -8,6 +8,9 @@
 (setq elpy-rpc-backend "jedi")
 (setq elpy-test-pytest-runner-command (quote ("pytest -n 7 -m \"not slow\"")))
 (setq elpy-test-runner (quote elpy-test-pytest-runner))
+(setq elpy-rpc-ignored-buffer-size 1002400)
+(setq elpy-rpc-large-buffer-size 10000)
+
 
 (add-hook
  'elpy-mode-hook

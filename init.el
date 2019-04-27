@@ -76,6 +76,7 @@
 
     ;; git integration
     magit
+    git-gutter
 
     yaml-mode
     coffee-mode
@@ -92,6 +93,13 @@
     json-mode
     tern
     tern-auto-complete
+
+    ;; misc
+    markdown-mode
+    dockerfile-mode
+    yaml-mode
+    elpy
+
     ))
 
 (dolist (p my-packages)
@@ -107,7 +115,7 @@
 ;;
 ;; (require 'yaml-mode)
 ;; (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-;; 
+;;
 ;; Adding this code will make Emacs enter yaml mode whenever you open
 ;; a .yml file
 (add-to-list 'load-path "~/.emacs.d/vendor")
@@ -158,12 +166,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(coffee-tab-width 2)
- '(elpy-rpc-ignored-buffer-size 1002400)
- '(elpy-rpc-large-buffer-size 10000)
- '(package-selected-packages
-   (quote
-    (less-css-mode company-tern json-mode js2-mode yaml-mode web-mode tagedit smex scss-mode rainbow-delimiters projectile noflet markup-faces markdown-mode magit ido-ubiquitous haskell-mode haml-mode git-gutter flycheck exec-path-from-shell dockerfile-mode company coffee-mode clojure-mode-extra-font-locking clj-refactor ag ack-and-a-half))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
