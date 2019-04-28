@@ -31,6 +31,9 @@
 ;; Don't use hard tabs
 (setq-default indent-tabs-mode nil)
 
+;; Line width to 99 characters
+(setq fill-column 99)
+
 ;; When you visit a file, point goes to the last place where it
 ;; was when you previously visited the same file.
 ;; http://www.emacswiki.org/emacs/SavePlace
