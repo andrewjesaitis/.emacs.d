@@ -1,6 +1,6 @@
 .DS_store
 .smex-items
-*~$
+*~
 places
 .recentf
 ido.last
@@ -10,3 +10,5 @@ projectile.cache
 auto-save-list
 backups
 elpa
+tramp
+network-security.data
