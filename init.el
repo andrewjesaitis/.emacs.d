@@ -93,8 +93,9 @@
     json-mode
     tern
     tern-auto-complete
-
+    
     ;; misc
+    org
     markdown-mode
     dockerfile-mode
     yaml-mode
@@ -155,6 +156,9 @@
 
 ;; For editing lisps
 (load "elisp-editing.el")
+
+;; For org-mode using GTD
+(load "setup-org.el")
 
 ;; Langauage-specific
 (load "setup-clojure.el")
