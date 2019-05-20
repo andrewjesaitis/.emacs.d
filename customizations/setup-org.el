@@ -1,6 +1,7 @@
 ;;; Org Mode
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (require 'org)
+(add-to-list 'org-modules 'org-habit)
 
 ;; Standard key bindings
 (global-set-key "\C-cl" 'org-store-link)
@@ -183,7 +184,7 @@
                  '(todo-state-down effort-up category-keep))))
               (" " "Agenda"
                ((agenda "" nil)
-                (tags "REFILE"
+                (tags "INBOX"
                       ((org-agenda-overriding-header "Tasks to Refile")
                        (org-tags-match-list-sublevels nil)))
                 (tags-todo "-CANCELLED/!"
@@ -209,7 +210,7 @@
                             (org-agenda-todo-ignore-with-date avj/hide-scheduled-and-waiting-next-tasks)
                             (org-agenda-sorting-strategy
                              '(todo-state-down effort-up category-keep))))
-                (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                (tags-todo "-INBOX-CANCELLED-WAITING-HOLD/!"
                            ((org-agenda-overriding-header (concat "Project Subtasks"
                                                                   (if avj/hide-scheduled-and-waiting-next-tasks
                                                                       ""
@@ -220,7 +221,7 @@
                             (org-agenda-todo-ignore-with-date avj/hide-scheduled-and-waiting-next-tasks)
                             (org-agenda-sorting-strategy
                              '(category-keep))))
-                (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                (tags-todo "-INBOX-CANCELLED-WAITING-HOLD/!"
                            ((org-agenda-overriding-header (concat "Standalone Tasks"
                                                                   (if avj/hide-scheduled-and-waiting-next-tasks
                                                                       ""
@@ -240,7 +241,7 @@
                             (org-tags-match-list-sublevels nil)
                             (org-agenda-todo-ignore-scheduled avj/hide-scheduled-and-waiting-next-tasks)
                             (org-agenda-todo-ignore-deadlines avj/hide-scheduled-and-waiting-next-tasks)))
-                (tags "-REFILE/"
+                (tags "-INBOX/"
                       ((org-agenda-overriding-header "Tasks to Archive")
                        (org-agenda-skip-function 'avj/skip-non-archivable-tasks)
                        (org-tags-match-list-sublevels nil))))
