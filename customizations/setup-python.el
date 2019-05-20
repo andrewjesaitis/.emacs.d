@@ -5,16 +5,20 @@
 
 ;;enable elpy
 (elpy-enable)
-(setq elpy-rpc-backend "jedi")
-(setq elpy-test-pytest-runner-command (quote ("pytest -n 7 -m \"not slow\"")))
-(setq elpy-test-runner (quote elpy-test-pytest-runner))
-(setq elpy-rpc-ignored-buffer-size 1002400)
-(setq elpy-rpc-large-buffer-size 10000)
+(setq elpy-rpc-ignored-buffer-size 10024000)
+(setq elpy-rpc-large-buffer-size 100000)
+;; (defun elpy--xref-backend ()
+;;   "Return the name of the elpy xref backend."
+;;   (if (or (and (not (elpy-rpc--process-buffer-p elpy-rpc--buffer))
+;;                (elpy-rpc--get-rpc-buffer))
+;;           elpy-rpc--jedi-available)
+;;       'elpy
+;;     nil))
 
-
-(add-hook
- 'elpy-mode-hook
- '(lambda () (setq-local ac-max-width 0.5)))
+;; (add-hook
+;;  'elpy-mode-hook
+;;  '(lambda ()
+;;     (setq-local ac-max-width 0.5)))
 
 ;; Python debugger toggle
 (defun toggle-pdb ()
