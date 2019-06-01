@@ -1,6 +1,7 @@
 ;;; Org Mode
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (require 'org)
+(require 'org-checklist)
 (add-to-list 'org-modules 'org-habit)
 
 ;; Standard key bindings
@@ -46,6 +47,10 @@
 (global-set-key (kbd "C-<f11>") 'org-clock-in)
 (global-set-key (kbd "C-s-<f12>") 'avj/save-then-publish)
 (global-set-key (kbd "C-c c") 'org-capture)
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c #") 'avj/insert-custom-clock-entry)))
 
 (defun avj/hide-other ()
   (interactive)
@@ -633,8 +638,17 @@ as the default task."
              (marker-buffer org-clock-default-task)
              (not org-clock-resolving-clocks-due-to-idleness))
     (avj/clock-in-parent-task)))
-
 (add-hook 'org-clock-out-hook 'avj/clock-out-maybe 'append)
+
+(defun avj/insert-custom-clock-entry ()
+  (interactive)
+  (insert "CLOCK: ")
+  (org-time-stamp-inactive)
+  (insert "--")
+  ;; Inserts the current time by default.
+  (let ((current-prefix-arg '(4))) (call-interactively 'org-time-stamp-inactive))
+  (org-ctrl-c-ctrl-c))
+
 
 (setq org-time-stamp-rounding-minutes (quote (1 1)))
 (setq org-agenda-clock-consistency-checks
@@ -651,7 +665,7 @@ as the default task."
                             ("@home" . ?H)
                             (:endgroup)
                             ("WAITING" . ?w)
-                            ("HOLD" . ?h)
+                            ("HABITS" . ?h)
                             ("PERSONAL" . ?P)
                             ("ZYMERGEN" . ?Z)
                             ("NOTE" . ?n)
