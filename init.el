@@ -1,13 +1,11 @@
 ;;;;
 ;; Packages
 ;;;;
-
 (server-start)
+(setq load-prefer-newer t)
 
 ;; Define package repositories
 (require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "https://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives
              '("melpa stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
@@ -48,7 +46,7 @@
     ;; allow ido usage in as many contexts as possible. see
     ;; customizations/better-defaults.el line 47 for a description
     ;; of ido
-    ido-ubiquitous
+    ido-completing-read+
 
     ;; Enhances M-x to allow easier execution of commands. Provides
     ;; a filterable list of possible commands in the minibuffer
@@ -77,16 +75,8 @@
     ;; git integration
     magit
     git-gutter
-
-    yaml-mode
-    coffee-mode
-    scss-mode
-    haskell-mode
-    company
-    ack-and-a-half
-    ag
-
-    ;;jsx
+    
+    ;;js
     flycheck
     web-mode
     js2-mode
@@ -95,18 +85,20 @@
     tern-auto-complete
     
     ;; misc
-    org
+    org-plus-contrib
+    company
+    ag
     markdown-mode
     dockerfile-mode
     yaml-mode
     elpy
-
+    scss-mode
+    color-theme-sanityinc-tomorrow
     ))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
-
 
 ;; Place downloaded elisp files in ~/.emacs.d/vendor. You'll then be able
 ;; to load them.
