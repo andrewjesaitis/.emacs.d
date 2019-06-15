@@ -43,16 +43,6 @@
     ;; https://github.com/clojure-emacs/cider
     cider
 
-    ;; allow ido usage in as many contexts as possible. see
-    ;; customizations/better-defaults.el line 47 for a description
-    ;; of ido
-    ido-completing-read+
-
-    ;; Enhances M-x to allow easier execution of commands. Provides
-    ;; a filterable list of possible commands in the minibuffer
-    ;; http://www.emacswiki.org/emacs/Smex
-    smex
-
     ;; On OS X, an Emacs instance started from the graphical user
     ;; interface will have a different environment than a shell in a
     ;; terminal window, because OS X does not run a shell during the
@@ -87,6 +77,7 @@
     ;; misc
     evil
     evil-colemak-basics
+    counsel
     org-plus-contrib
     company
     ag
