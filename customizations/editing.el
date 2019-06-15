@@ -1,5 +1,10 @@
 ;; Customizations relating to editing a buffer.
 
+;; evil mode
+;;(require 'evil)
+;;(evil-mode 1)
+;;(require 'evil-colemak-basics)
+
 ;; Use a bar cursor
 (set-default 'cursor-type 'bar)
 

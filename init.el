@@ -85,6 +85,8 @@
     tern-auto-complete
     
     ;; misc
+    evil
+    evil-colemak-basics
     org-plus-contrib
     company
     ag
