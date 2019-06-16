@@ -21,29 +21,104 @@
 
 ;; ivy
 (ivy-mode 1)
+(setq projectile-completion-system 'ivy)
+(setq magit-completing-read-function 'ivy-completing-read)
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
-(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
 (global-set-key (kbd "C-c c") 'counsel-compile)
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-
-;; Shows a list of buffers
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; projectile everywhere!
 (projectile-global-mode)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 (global-set-key (kbd "M-n") 'imenu)
+(general-define-key
+   :states '(normal visual insert emacs)
+   :prefix "SPC"
+   :non-normal-prefix "C-SPC"
+
+   "<SPC>" '(counsel-M-x :which-key "M-x")
+   "a" '(:ignore t :which-key "applications")
+   "am" 'magit-status
+   "ap" 'projectile-command-map
+   "as" 'swiper
+   "al" 'counsel-locate
+   "aa" 'counsel-ag
+   "b" '(:ignore t :which-key "buffer")
+   "bb" 'ibuffer
+   "bk" 'kill-buffer
+   "bn" 'next-buffer
+   "bp" 'previous-buffer
+   "f" '(:ignore t :which-key "files")
+   "ff" 'counsel-find-file
+   "fg" 'rgrep
+   "fs" 'save-buffer
+   "h" '(:ignore t :which-key "help")
+   "hd" '(:ignore t :which-key "help-describe")"hdb" 'describe-bindings
+   "hdc" 'describe-char
+   "hdf" 'counsel-describe-function
+   "hdi" 'counsel-info-lookup-symbol
+   "hdk" 'describe-key
+   "hdp" 'describe-package
+   "hdt" 'describe-theme
+   "hdv" 'counsel-describe-variable
+   "hn" 'view-emacs-news
+   "j" '(:ignore t :which-key "jump")
+   "jf" 'find-function
+   "jv" 'find-variable
+   "q" '(:ignore t :which-key "quit")
+   "qQ" 'kill-emacs
+   "qs" 'save-buffers-kill-emacs
+   "w <S-down>"  'evil-window-move-very-bottom
+   "w <S-left>"  'evil-window-move-far-left
+   "w <S-right>"  'evil-window-move-far-right
+   "w <S-up>"  'evil-window-move-very-top
+   "w <down>"  'evil-window-down
+   "w <left>"  'evil-window-left
+   "w <right>"  'evil-window-right
+   "w <up>"  'evil-window-up
+   "w" '(:ignore :which-key "window")
+   "w-"  'split-window-below
+   "w="  'balance-windows
+   "wE"  'evil-window-move-very-bottom
+   "wF"  'make-frame
+   "wH"  'evil-window-move-far-left
+   "wN"  'evil-window-move-very-top
+   "wO"  'evil-window-move-far-right
+   "w\\"  'split-window-right
+   "w_"  'split-window-below-and-focus
+   "wd" '(:ignore :which-key "delete")
+   "wdo" 'delete-other-window
+   "wds" 'delete-window
+   "we"  'evil-window-down
+   "wf"  'other-frame
+   "wh"  'evil-window-left
+   "wl"  'follow-mode
+   "wn"  'evil-window-up
+   "wo"  'evil-window-right
+   "ww"  'other-window
+   "w|"  'split-window-right-and-focus
+   "x TAB" 'indent-rigidly
+   "x" '(:ignore t :which-key "text")
+   "xU"  'upcase-region
+   "xi" 'counsel-unicode-char
+   "xa" '(:ignore t :which-key "align")
+   "xaa" 'align
+   "xac" 'align-current
+   "xc"  'count-words-region
+   "xd" '(:ignore t :which-key "delete")
+   "xdw" 'delete-trailing-whitespace
+   "xj" '(:ignore t :which-key "justification")
+   "xjc" 'set-justification-center
+   "xjf" 'set-justification-full
+   "xjl" 'set-justification-left
+   "xjn" 'set-justification-none
+   "xjr" 'set-justification-right
+   "xl" '(:ignore t :which-key "lines")
+   "xl" '(:ignore t :which-key "lines")
+   "xls" 'sort-lines
+   "xt" '(:ignore t :which-key "transpose")
+   "xtc" 'transpose-chars
+   "xtl" 'transpose-lines
+   "xtw" 'transpose-words
+   "xu"  'downcase-region)

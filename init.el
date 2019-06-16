@@ -7,7 +7,7 @@
 ;; Define package repositories
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa stable" . "https://stable.melpa.org/packages/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives
              '("org" . "https://orgmode.org/elpa/") t)
 
@@ -75,6 +75,9 @@
     tern-auto-complete
     
     ;; misc
+    key-chord
+    general
+    which-key
     evil
     evil-colemak-basics
     counsel

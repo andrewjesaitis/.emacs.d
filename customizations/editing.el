@@ -1,10 +1,11 @@
 ;; Customizations relating to editing a buffer.
 
 ;; evil mode
-;;(require 'evil)
-;;(evil-mode 1)
-;;(require 'evil-colemak-basics)
-
+(require 'evil)
+(evil-mode 1)
+(require 'evil-colemak-basics)
+(global-evil-colemak-basics-mode)
+(key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
 ;; Use a bar cursor
 (set-default 'cursor-type 'bar)
 
@@ -19,6 +20,9 @@
         try-expand-dabbrev-from-kill
         try-complete-lisp-symbol-partially
         try-complete-lisp-symbol))
+
+;; auto-indent on RET
+(define-key global-map (kbd "RET") 'newline-and-indent)
 
 ;; Highlights matching parenthesis
 (show-paren-mode 1)
