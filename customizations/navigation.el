@@ -25,25 +25,27 @@
 (setq magit-completing-read-function 'ivy-completing-read)
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
+(setq ivy-re-builders-alist
+      '((read-file-name-internal . ivy--regex-fuzzy)
+        (t . ivy--regex-ignore-order)))
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
 (global-set-key (kbd "C-c c") 'counsel-compile)
 
 ;; projectile everywhere!
 (projectile-global-mode)
-
-(global-set-key (kbd "M-n") 'imenu)
+(general-auto-unbind-keys)
 (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "C-SPC"
+ :states 'motion
+ :keymaps 'override
+ :prefix "SPC"
+   "" nil
 
    "<SPC>" '(counsel-M-x :which-key "M-x")
-   "a" '(:ignore t :which-key "applications")
-   "am" 'magit-status
-   "ap" 'projectile-command-map
-   "as" 'swiper
-   "al" 'counsel-locate
-   "aa" 'counsel-ag
+   "m" 'magit-status
+   "p" 'projectile-command-map
+   "s" 'swiper
+   "l" 'counsel-locate
+   "a" 'counsel-ag
    "b" '(:ignore t :which-key "buffer")
    "bb" 'ibuffer
    "bk" 'kill-buffer
@@ -66,6 +68,9 @@
    "j" '(:ignore t :which-key "jump")
    "jf" 'find-function
    "jv" 'find-variable
+   "o" '(:ignore t :which-key "org")
+   "oa" 'org-agenda
+   "on" 'org-capture
    "q" '(:ignore t :which-key "quit")
    "qQ" 'kill-emacs
    "qs" 'save-buffers-kill-emacs
@@ -88,7 +93,7 @@
    "w\\"  'split-window-right
    "w_"  'split-window-below-and-focus
    "wd" '(:ignore :which-key "delete")
-   "wdo" 'delete-other-window
+   "wdo" 'delete-other-windows
    "wds" 'delete-window
    "we"  'evil-window-down
    "wf"  'other-frame

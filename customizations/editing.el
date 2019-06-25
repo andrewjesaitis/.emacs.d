@@ -1,11 +1,24 @@
 ;; Customizations relating to editing a buffer.
 
 ;; evil mode
+(setq evil-overriding-maps nil
+      evil-intercept-maps nil
+      evil-pending-intercept-maps nil
+      evil-pending-overriding-maps nil
+      evil-want-keybinding nil
+      evil-escape-key-sequence "nn"
+      evil-escape-delay 0.2)
+(when (require 'evil-collection nil t)
+  (evil-collection-init))
+;; subvert evil-operation.el overrides (dired, ibuffer etc.)
 (require 'evil)
 (evil-mode 1)
+(evil-escape-mode 1)
+(advice-add 'evil-make-overriding-map :override #'ignore)
+(advice-add 'evil-make-intercept-map  :override #'ignore)
+(advice-add 'evil-add-hjkl-bindings   :override #'ignore)
 (require 'evil-colemak-basics)
 (global-evil-colemak-basics-mode)
-(key-chord-define evil-insert-state-map "jj" 'evil-normal-state)
 ;; Use a bar cursor
 (set-default 'cursor-type 'bar)
 

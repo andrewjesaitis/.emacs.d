@@ -24,6 +24,8 @@
 (when (not package-archive-contents)
   (package-refresh-contents))
 
+
+;;TODO: Move Packages to use-package
 ;; The packages you want installed. You can also install these
 ;; manually with M-x package-install
 ;; Add in your own as you wish:
@@ -75,11 +77,13 @@
     tern-auto-complete
     
     ;; misc
-    key-chord
+    evil-escape
     general
     which-key
     evil
     evil-colemak-basics
+    evil-collection
+    evil-org
     counsel
     org-plus-contrib
     company

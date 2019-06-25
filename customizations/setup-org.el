@@ -2,17 +2,21 @@
 (add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
 (require 'org)
 (require 'org-checklist)
+(require 'evil-org)
+(require 'evil-org-agenda)
 (add-to-list 'org-modules 'org-habit)
+(evil-set-initial-state 'org-agenda-mode 'normal)
+(add-hook 'auto-save-hook 'org-save-all-org-buffers)
 
 ;; Standard key bindings
 (global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-ca" 'org-agenda)
+;;(global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (setq org-agenda-files (quote ("~/Dropbox/org")))
 
 ;; Custom Key Bindings
-(global-set-key (kbd "<f12>") 'org-agenda)
+;;(global-set-key (kbd "<f12>") 'org-agenda)
 (global-set-key (kbd "<f5>") 'avj/org-todo)
 (global-set-key (kbd "<S-f5>") 'avj/widen)
 (global-set-key (kbd "<f7>") 'avj/set-truncate-lines)
@@ -24,12 +28,9 @@
 (global-set-key (kbd "<f9> g") 'gnus)
 (global-set-key (kbd "<f9> h") 'avj/hide-other)
 (global-set-key (kbd "<f9> n") 'avj/toggle-next-task-display)
-
-(global-set-key (kbd "<f9> I") 'avj/punch-in)
-(global-set-key (kbd "<f9> O") 'avj/punch-out)
-
+;;(global-set-key (kbd "<f9> I") 'avj/punch-in)
+;;(global-set-key (kbd "<f9> O") 'avj/punch-out)
 (global-set-key (kbd "<f9> o") 'avj/make-org-scratch)
-
 (global-set-key (kbd "<f9> r") 'boxquote-region)
 (global-set-key (kbd "<f9> s") 'avj/switch-to-scratch)
 
@@ -38,19 +39,74 @@
 
 (global-set-key (kbd "<f9> v") 'visible-mode)
 (global-set-key (kbd "<f9> l") 'org-toggle-link-display)
-(global-set-key (kbd "<f9> SPC") 'avj/clock-in-last-task)
+;;(global-set-key (kbd "<f9> SPC") 'avj/clock-in-last-task)
 (global-set-key (kbd "C-<f9>") 'previous-buffer)
 (global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
 (global-set-key (kbd "C-x n r") 'narrow-to-region)
 (global-set-key (kbd "C-<f10>") 'next-buffer)
-(global-set-key (kbd "<f11>") 'org-clock-goto)
-(global-set-key (kbd "C-<f11>") 'org-clock-in)
+;;(global-set-key (kbd "<f11>") 'org-clock-goto)
+;;(global-set-key (kbd "C-<f11>") 'org-clock-in)
 (global-set-key (kbd "C-s-<f12>") 'avj/save-then-publish)
-(global-set-key (kbd "C-c c") 'org-capture)
+;;(global-set-key (kbd "C-c c") 'org-capture)
 
 (add-hook 'org-mode-hook
           (lambda ()
-            (local-set-key (kbd "C-c #") 'avj/insert-custom-clock-entry)))
+            (local-set-key (kbd "<SPC>") nil)
+            (evil-org-mode)))
+(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+(evil-org-agenda-set-keys)
+;; TODO: Org-mode specific keymaps using general
+(general-define-key
+ :states 'motion
+ :keymaps 'org-mode-map
+ :prefix "SPC"
+   "" nil
+ 
+   "oc"  '(:ignore t :which-key "clocking")
+   "occ" 'avj/insert-custom-clock-entry
+   "ocg" 'org-clock-goto
+   "oci" 'org-clock-in
+   "ocl" 'avj/clock-in-last-task
+   "oco" 'org-clock-out
+   "ocp"  '(:ignore t :which-key "punch clock")
+   "ocpi" 'avj/punch-in
+   "ocpo" 'avj/punch-out
+   "od"   'org-deadline
+   "oe"   '(:ignore t :which-key "effort")
+   "oem"  'org-clock-modify-effor-estimate
+   "oes"  'org-set-effort
+   "op"   'org-priority
+   "or"   'org-refile
+   "os"   'org-schedule
+   "ot"   '(:ignore t :which-key "timestamp")
+   "ota"  'org-time-stamp
+   "oti"  'org-time-stamp-inactive
+   "ote"  'org-evaluate-time-range
+   "ox"   'org-toggle-checkbox)
+
+(general-define-key
+ :states 'motion
+ :keymaps 'org-agenda-mode-map
+ :prefix "SPC"
+   "" nil
+ 
+   "oc"  '(:ignore t :which-key "clocking")
+   "ocg" 'org-agenda-clock-goto
+   "oci" 'org-agenda-clock-in
+   "oco" 'org-agenda-clock-out
+   "ocr" 'org-agenda-clockreport-mode
+   "od"  'org-agenda-deadline
+   "of"  '(:ignore t :which-key "filter")
+   "oft" 'org-agenda-filter-by-tag
+   "ofc" 'org-agenda-filter-by-category
+   "ofr" 'org-agenda-filter-by-regexp
+   "ofe" 'org-agenda-filter-by-effort
+   "ofc" 'org-agenda-filter-remove-all
+   "on"  'org-agenda-capture
+   "op"  'org-agenda-priority
+   "or"  'org-agenda-refile
+   "os"  'org-agenda-schedule)
+
 
 (defun avj/hide-other ()
   (interactive)
@@ -111,7 +167,7 @@
 (setq org-default-notes-file "~/Dropbox/org/inbox.org")
 
 ;; I use C-c c to start capture mode
-(global-set-key (kbd "C-c c") 'org-capture)
+;;(global-set-key (kbd "C-c c") 'org-capture)
 
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
