@@ -62,27 +62,30 @@
  :prefix "SPC"
    "" nil
  
-   "oc"  '(:ignore t :which-key "clocking")
+   "oc"  '(:ignore t :which-key "Clock")
    "occ" 'avj/insert-custom-clock-entry
    "ocg" 'org-clock-goto
    "oci" 'org-clock-in
    "ocl" 'avj/clock-in-last-task
    "oco" 'org-clock-out
-   "ocp"  '(:ignore t :which-key "punch clock")
+   "ocp"  '(:ignore t :which-key "Punch clock")
    "ocpi" 'avj/punch-in
    "ocpo" 'avj/punch-out
-   "od"   'org-deadline
-   "oe"   '(:ignore t :which-key "effort")
+   "otd"   'org-deadline
+   "oe"   '(:ignore t :which-key "Effort")
    "oem"  'org-clock-modify-effor-estimate
    "oes"  'org-set-effort
    "op"   'org-priority
    "or"   'org-refile
-   "os"   'org-schedule
-   "ot"   '(:ignore t :which-key "timestamp")
+   "ots"   'org-schedule
+   "ot"   '(:ignore t :which-key "Timestamp")
    "ota"  'org-time-stamp
    "oti"  'org-time-stamp-inactive
    "ote"  'org-evaluate-time-range
-   "ox"   'org-toggle-checkbox)
+   "ox"   'org-toggle-checkbox
+   "os"    '(:ignore t :which-key "todo State")
+   "os"   'org-todo
+   "oss"   'avj/org-todo-done)
 
 (general-define-key
  :states 'motion
@@ -90,13 +93,13 @@
  :prefix "SPC"
    "" nil
  
-   "oc"  '(:ignore t :which-key "clocking")
+   "oc"  '(:ignore t :which-key "Clocking")
    "ocg" 'org-agenda-clock-goto
    "oci" 'org-agenda-clock-in
    "oco" 'org-agenda-clock-out
    "ocr" 'org-agenda-clockreport-mode
    "od"  'org-agenda-deadline
-   "of"  '(:ignore t :which-key "filter")
+   "of"  '(:ignore t :which-key "Filter")
    "oft" 'org-agenda-filter-by-tag
    "ofc" 'org-agenda-filter-by-category
    "ofr" 'org-agenda-filter-by-regexp
@@ -105,8 +108,14 @@
    "on"  'org-agenda-capture
    "op"  'org-agenda-priority
    "or"  'org-agenda-refile
-   "os"  'org-agenda-schedule)
+   "os"  'org-agenda-schedule
+   "os"   '(:ignore t :which-key "todo State")
+   "ost"  'org-todo
+   "oss"  'avj/org-todo-done)
 
+(defun avj/org-todo-done ()
+  (interactive)
+  (org-todo "DONE"))
 
 (defun avj/hide-other ()
   (interactive)
