@@ -14,6 +14,7 @@
 (require 'evil)
 (evil-mode 1)
 (evil-escape-mode 1)
+(setq evil-want-fine-undo t)
 (advice-add 'evil-make-overriding-map :override #'ignore)
 (advice-add 'evil-make-intercept-map  :override #'ignore)
 (advice-add 'evil-add-hjkl-bindings   :override #'ignore)
