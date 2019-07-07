@@ -14,6 +14,7 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 (setq org-agenda-files (quote ("~/Dropbox/org")))
+(setq org-tags-match-list-sublevels (quote indented))
 
 ;; Custom Key Bindings
 ;;(global-set-key (kbd "<f12>") 'org-agenda)
