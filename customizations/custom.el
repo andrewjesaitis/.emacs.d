@@ -18,6 +18,7 @@
  '(python-shell-interpreter "jupyter")
  '(python-shell-interpreter-args "console --simple-prompt")
  '(reb-re-syntax (quote string))
+ '(safe-local-variable-values (quote ((pyvenv-workon . zwork3))))
  '(which-key-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
