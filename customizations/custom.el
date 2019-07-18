@@ -8,6 +8,7 @@
  '(custom-safe-themes
    (quote
     ("1b8d67b43ff1723960eb5e0cba512a2c7a2ad544ddb2533a90101fd1852b426e" default)))
+ '(elpy-test-pytest-runner-command (quote ("py.test")))
  '(elpy-test-runner (quote elpy-test-pytest-runner))
  '(global-evil-colemak-basics-mode t)
  '(package-selected-packages
@@ -16,6 +17,7 @@
  '(python-shell-internal-buffer-name "Jupyter")
  '(python-shell-interpreter "jupyter")
  '(python-shell-interpreter-args "console --simple-prompt")
+ '(reb-re-syntax (quote string))
  '(which-key-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
