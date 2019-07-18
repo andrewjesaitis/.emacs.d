@@ -12,7 +12,7 @@
  '(global-evil-colemak-basics-mode t)
  '(package-selected-packages
    (quote
-    (evil-org evil-escape evil-collection aa-edit-mode ac-rtags general vigenere which-key evil-leader key-chord evil-colemak-basics evil auto-compile yatemplate org-plus-contrib color-theme-sanityinc-tomorrow org-tracktable package-lint yaml-mode web-mode tern-auto-complete tagedit smex scss-mode rainbow-delimiters projectile paredit markdown-mode json-mode js2-mode ido-ubiquitous haskell-mode git-gutter flycheck exec-path-from-shell elpy dockerfile-mode coffee-mode clojure-mode-extra-font-locking cider ag ack-and-a-half)))
+    (ws-butler importmagic evil-org evil-escape evil-collection aa-edit-mode ac-rtags general vigenere which-key evil-leader key-chord evil-colemak-basics evil auto-compile yatemplate org-plus-contrib color-theme-sanityinc-tomorrow org-tracktable package-lint yaml-mode web-mode tern-auto-complete tagedit smex scss-mode rainbow-delimiters projectile paredit markdown-mode json-mode js2-mode ido-ubiquitous haskell-mode git-gutter flycheck exec-path-from-shell elpy dockerfile-mode coffee-mode clojure-mode-extra-font-locking cider ag ack-and-a-half)))
  '(python-shell-internal-buffer-name "Jupyter")
  '(python-shell-interpreter "jupyter")
  '(python-shell-interpreter-args "console --simple-prompt")

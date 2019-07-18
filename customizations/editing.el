@@ -132,3 +132,7 @@
           (rename-buffer new-name)
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil))))))
+
+;; Trim touched white-space on save in programming buffers
+(require 'ws-butler)
+(add-hook 'prog-mode-hook #'ws-butler-mode)

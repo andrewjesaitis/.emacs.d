@@ -94,6 +94,7 @@
     elpy
     scss-mode
     color-theme-sanityinc-tomorrow
+    ws-butler
     ))
 
 (dolist (p my-packages)
