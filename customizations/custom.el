@@ -25,5 +25,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#000000" :foreground "#eaeaea" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 125 :width normal :foundry "ADBO" :family "Source Code Pro"))))
  '(magit-diff-added ((t (:background "black" :foreground "green3"))))
  '(magit-diff-removed ((t (:background "black" :foreground "red3")))))
