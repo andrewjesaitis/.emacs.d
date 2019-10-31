@@ -6,7 +6,7 @@
       evil-pending-intercept-maps nil
       evil-pending-overriding-maps nil
       evil-want-keybinding nil
-      evil-escape-key-sequence "nn"
+      evil-escape-key-sequence "hh"
       evil-escape-delay 0.2)
 (when (require 'evil-collection nil t)
   (evil-collection-init))
