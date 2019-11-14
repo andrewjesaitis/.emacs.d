@@ -19,19 +19,19 @@
    (evil-escape-mode)
    (setq evil-want-fine-undo t))
 
-
-(use-package evil-colemak-basics
-  :ensure t
-  :after evil
-  :config
-  (global-evil-colemak-basics-mode))
-
  (use-package evil-collection
    :ensure t
    :after evil
    :config
    (evil-collection-init)
    )
+
+(use-package evil-colemak-basics
+  :ensure t
+  :after (:all evil-collection evil))
+
+;; for some reason this form can't be in the config for the package
+(global-evil-colemak-basics-mode 1)
 
 ;; CUSTOMIZATIONS ::
 ;; Use a bar cursor
