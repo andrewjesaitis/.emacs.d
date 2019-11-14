@@ -1,25 +1,39 @@
 ;; Customizations relating to editing a buffer.
+ (use-package evil
+   :ensure t
+   :init
+   (setq evil-overriding-maps nil
+         evil-intercept-maps nil
+         evil-insert-state-bindings nil
+         ;; must be set before loading evil no matter what
+         evil-want-keybinding nil
+         ;; required for gn
+         evil-search-module 'evil-search
+         evil-ex-search-persistent-highlight nil
+         ;; Y like D
+         evil-want-Y-yank-to-eol t
+         evil-escape-key-sequence "hh"
+         evil-escape-delay 0.2)
+   :config
+   (evil-mode)
+   (evil-escape-mode)
+   (setq evil-want-fine-undo t))
 
-;; evil mode
-(setq evil-overriding-maps nil
-      evil-intercept-maps nil
-      evil-pending-intercept-maps nil
-      evil-pending-overriding-maps nil
-      evil-want-keybinding nil
-      evil-escape-key-sequence "hh"
-      evil-escape-delay 0.2)
-(when (require 'evil-collection nil t)
-  (evil-collection-init))
-;; subvert evil-operation.el overrides (dired, ibuffer etc.)
-(require 'evil)
-(evil-mode 1)
-(evil-escape-mode 1)
-(setq evil-want-fine-undo t)
-(advice-add 'evil-make-overriding-map :override #'ignore)
-(advice-add 'evil-make-intercept-map  :override #'ignore)
-(advice-add 'evil-add-hjkl-bindings   :override #'ignore)
-(require 'evil-colemak-basics)
-(global-evil-colemak-basics-mode)
+
+(use-package evil-colemak-basics
+  :ensure t
+  :after evil
+  :config
+  (global-evil-colemak-basics-mode))
+
+ (use-package evil-collection
+   :ensure t
+   :after evil
+   :config
+   (evil-collection-init)
+   )
+
+;; CUSTOMIZATIONS ::
 ;; Use a bar cursor
 (set-default 'cursor-type 'bar)
 
@@ -53,10 +67,12 @@
 ;; When you visit a file, point goes to the last place where it
 ;; was when you previously visited the same file.
 ;; http://www.emacswiki.org/emacs/SavePlace
-(require 'saveplace)
-(setq-default save-place t)
-;; keep track of saved places in ~/.emacs.d/places
-(setq save-place-file (concat user-emacs-directory "places"))
+(use-package saveplace
+  :ensure t
+  :config
+  (setq-default save-place t)
+  ;; keep track of saved places in ~/.emacs.d/places
+  (setq save-place-file (concat user-emacs-directory "places")))
 
 ;; Emacs can automatically create backup files. This tells Emacs to
 ;; put all backups in ~/.emacs.d/backups. More info:
@@ -67,8 +83,9 @@
 
 ;; yasnippet
 ;; http://www.emacswiki.org/emacs/Yasnippet
-(require 'yasnippet)
-(yas-global-mode 1)
+(use-package yasnippet
+  :config
+  (yas-global-mode 1))
 
 ;; comments
 (defun toggle-comment-on-line ()
@@ -79,21 +96,6 @@
 
 ;; yay rainbows!
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-
-;; use 2 spaces for tabs
-(defun die-tabs ()
-  (interactive)
-  (set-variable 'tab-width 2)
-  (mark-whole-buffer)
-  (untabify (region-beginning) (region-end))
-  (keyboard-quit))
-
-;; fix weird os x kill error
-(defun ns-get-pasteboard ()
-  "Returns the value of the pasteboard, or nil for unsupported formats."
-  (condition-case nil
-      (ns-get-selection-internal 'CLIPBOARD)
-    (quit nil)))
 
 (setq electric-indent-mode nil)
 
@@ -117,22 +119,8 @@
 (global-set-key [(control shift up)]  'move-line-up)
 (global-set-key [(control shift down)]  'move-line-down)
 
-;; save and rename current buffer
-(defun rename-file-and-buffer (new-name)
-  "Renames both current buffer and file it's visiting to NEW-NAME."
-  (interactive "sNew name: ")
-  (let ((name (buffer-name))
-        (filename (buffer-file-name)))
-    (if (not filename)
-        (message "Buffer '%s' is not visiting a file!" name)
-      (if (get-buffer new-name)
-          (message "A buffer named '%s' already exists!" new-name)
-        (progn
-          (rename-file filename new-name 1)
-          (rename-buffer new-name)
-          (set-visited-file-name new-name)
-          (set-buffer-modified-p nil))))))
 
 ;; Trim touched white-space on save in programming buffers
-(require 'ws-butler)
-(add-hook 'prog-mode-hook #'ws-butler-mode)
+(use-package ws-butler
+  :config
+  (add-hook 'prog-mode-hook #'ws-butler-mode))

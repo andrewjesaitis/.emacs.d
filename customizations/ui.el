@@ -39,26 +39,6 @@
 (setq mouse-wheel-follow-mouse 't)
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
 
-;; Color Themes
-(require 'color-theme-sanityinc-tomorrow)
-
-;; powerline customizes the mode line
-;; (add-to-list 'load-path "~/.emacs.d/vendor/emacs-powerline")
-;; (require 'powerline)
-;;(custom-set-faces
-;; '(mode-line ((t (:foreground "#333" :background "#bad063" :box nil))))
-;; ;'(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666666" :box nil))))
-;; )
-
-;; Uncomment the lines below by removing semicolons and play with the
-;; values in order to set the width (in characters wide) and height
-;; (in lines high) Emacs will have whenever you start it
-(if (or (equal system-name "DH.local")
-        (equal system-name "waffles")) 
-    (setq initial-frame-alist '((top . 0) (left . 0)
-                                (width . 177) (height . 53)))
-  (setq initial-frame-alist '((top . 0) (left . 0)
-                              (width . 177) (height . 52))))
 
 ;; These settings relate to how emacs interacts with your operating system
 (setq ;; makes killing/yanking interact with the clipboard

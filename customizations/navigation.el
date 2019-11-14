@@ -1,37 +1,38 @@
 ;; These customizations make it easier for you to navigate files,
 ;; switch buffers, and choose options from the minibuffer.
 
-
-;; "When several buffers visit identically-named files,
-;; Emacs must give the buffers distinct names. The usual method
-;; for making buffer names unique adds ‘<2>’, ‘<3>’, etc. to the end
-;; of the buffer names (all but one of them).
-;; The forward naming method includes part of the file's directory
-;; name at the beginning of the buffer name
-;; https://www.gnu.org/software/emacs/manual/html_node/emacs/Uniquify.html
-(require 'uniquify)
+;; put path before buffer name when uniquifying a buffer (instead of after)
 (setq uniquify-buffer-name-style 'forward)
 
 ;; Turn on recent file mode so that you can more easily switch to
 ;; recently edited files when you first start emacs
-(setq recentf-save-file (concat user-emacs-directory ".recentf"))
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-max-menu-items 40)
+(use-package recentf
+  :ensure t
+  :defer 3
+  :init
+  (setq recentf-save-file (concat user-emacs-directory ".recentf")
+        recentf-max-menu-items 40))
 
 ;; ivy
-(ivy-mode 1)
-(setq projectile-completion-system 'ivy)
-(setq magit-completing-read-function 'ivy-completing-read)
-(setq ivy-use-virtual-buffers t)
-(setq ivy-count-format "(%d/%d) ")
-(setq ivy-re-builders-alist
-      '((read-file-name-internal . ivy--regex-fuzzy)
-        (t . ivy--regex-ignore-order)))
+(use-package ivy
+  :ensure t
+  :init
+  (setq projectile-completion-system 'ivy
+        magit-completing-read-function 'ivy-completing-read
+        ivy-use-virtual-buffers t
+        ivy-count-format "(%d/%d) "
+        ivy-re-builders-alist
+        '((read-file-name-internal . ivy--regex-fuzzy)
+          (t . ivy--regex-ignore-order)))
+  :config
+  (ivy-mode))
+
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
 (global-set-key (kbd "C-c c") 'counsel-compile)
 
 ;; projectile everywhere!
+(use-package projectile
+  :ensure t)
 (projectile-global-mode)
 (general-auto-unbind-keys)
 (general-define-key

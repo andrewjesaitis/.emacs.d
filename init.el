@@ -1,119 +1,100 @@
 ;;;;
 ;; Packages
 ;;;;
-(server-start)
+;;b(server-start)
 (setq load-prefer-newer t)
-
+;;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 ;; Define package repositories
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
+             '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives
-             '("org" . "https://orgmode.org/elpa/") t)
-
-;; (add-to-list 'package-pinned-packages '(cider . "melpa-stable") t)
+             '("org" . "http://orgmode.org/elpa/") t)
 
 ;; Load and activate emacs packages. Do this first so that the
 ;; packages are loaded before you start trying to modify them.
 ;; This also sets the load path.
 (package-initialize)
 
-;; Download the ELPA archive description if needed.
-;; This informs Emacs about the latest versions of all packages, and
-;; makes them available for download.
-(when (not package-archive-contents)
+;; update melpa metadata.
+(unless package-archive-contents
   (package-refresh-contents))
 
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
-;;TODO: Move Packages to use-package
-;; The packages you want installed. You can also install these
-;; manually with M-x package-install
-;; Add in your own as you wish:
-(defvar my-packages
-  '(;; makes handling lisp expressions much, much easier
-    ;; Cheatsheet: http://www.emacswiki.org/emacs/PareditCheatsheet
-    paredit
+(require 'use-package)
+(setq use-package-always-defer t)
 
-    ;; key bindings and code colorization for Clojure
-    ;; https://github.com/clojure-emacs/clojure-mode
-    clojure-mode
+(use-package paredit
+  :ensure t
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook #'paredit-mode)
+  (add-hook 'clojure-mode-hook #'paredit-mode)
+  (add-hook 'lisp-mode-hook #'paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode))
 
-    ;; extra syntax highlighting for clojure
-    clojure-mode-extra-font-locking
 
-    ;; integration with a Clojure REPL
-    ;; https://github.com/clojure-emacs/cider
-    cider
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (when (memq window-system '(mac ns))
+    (exec-path-from-shell-initialize)))
 
-    ;; On OS X, an Emacs instance started from the graphical user
-    ;; interface will have a different environment than a shell in a
-    ;; terminal window, because OS X does not run a shell during the
-    ;; login. Obviously this will lead to unexpected results when
-    ;; calling external utilities like make from Emacs.
-    ;; This library works around this problem by copying important
-    ;; environment variables from the user's shell.
-    ;; https://github.com/purcell/exec-path-from-shell
-    exec-path-from-shell
+;; colorful parenthesis matching
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-mode))
 
-    ;; project navigation
-    projectile
+;; edit html tags like sexps
+(use-package tagedit)
 
-    ;; colorful parenthesis matching
-    rainbow-delimiters
-
-    ;; edit html tags like sexps
-    tagedit
-
-    ;; git integration
-    magit
-    git-gutter
-    
-    ;;js
-    flycheck
-    web-mode
-    js2-mode
-    json-mode
-    tern
-    tern-auto-complete
-    
-    ;; misc
-    evil-escape
-    general
-    which-key
-    evil
-    evil-colemak-basics
-    evil-collection
-    evil-org
-    counsel
-    org-plus-contrib
-    company
-    ag
-    markdown-mode
-    dockerfile-mode
-    yaml-mode
-    elpy
-    scss-mode
-    color-theme-sanityinc-tomorrow
-    ws-butler
-    ))
-
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
-
-;; Place downloaded elisp files in ~/.emacs.d/vendor. You'll then be able
-;; to load them.
-;;
-;; For example, if you download yaml-mode.el to ~/.emacs.d/vendor,
-;; then you can add the following code to this file:
-;;
-;; (require 'yaml-mode)
-;; (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-;;
-;; Adding this code will make Emacs enter yaml mode whenever you open
-;; a .yml file
-(add-to-list 'load-path "~/.emacs.d/vendor")
-
+;; git integration
+(use-package magit
+  :ensure t)
+(use-package git-gutter
+  :ensure t)
+(use-package flycheck
+  :ensure t
+  :config
+  (add-hook 'web-mode-hook #'global-flycheck-mode)
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (setq-default flycheck-temp-prefix ".flycheck")
+  (setq-default flycheck-disabled-checkers
+		(append flycheck-disabled-checkers
+			'(json-jsonlist))))
+(use-package evil-escape
+  :ensure t)
+(use-package general
+  :ensure t)
+(use-package which-key
+  :ensure t)
+(use-package evil-org
+  :ensure t)
+(use-package counsel
+  :ensure t)
+(use-package org-plus-contrib
+  :ensure t)
+(use-package company
+  :ensure t)
+(use-package ag
+  :ensure t)
+(use-package markdown-mode
+  :ensure t)
+(use-package dockerfile-mode
+  :ensure t)
+(use-package yaml-mode
+  :ensure t)
+(use-package elpy
+  :ensure t)
+(use-package scss-mode
+  :ensure t)
+(use-package color-theme-sanityinc-tomorrow
+  :ensure t)
+(use-package ws-butler
+  :ensure t)
 
 ;;;;
 ;; Customization
@@ -139,7 +120,6 @@
              (with-selected-frame f
                (when (window-system f) (load "ui.el")))))
 (load "ui.el"))
-
 
 ;; These customizations make editing a bit nicer.
 (load "editing.el")

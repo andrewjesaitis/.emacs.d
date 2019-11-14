@@ -1,20 +1,35 @@
 ;;; Org Mode
-(add-to-list 'auto-mode-alist '("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode))
-(require 'org)
-(require 'org-checklist)
-(require 'evil-org)
-(require 'evil-org-agenda)
-(add-to-list 'org-modules 'org-habit)
-(evil-set-initial-state 'org-agenda-mode 'normal)
-(add-hook 'auto-save-hook 'org-save-all-org-buffers)
+(use-package org
+  :mode
+  ("\\.\\(org\\|org_archive\\|txt\\)$" . org-mode)
+  :ensure t
+  :config
+  (require 'org-checklist)
+  (local-set-key (kbd "<SPC>") nil)
+  (add-hook 'auto-save-hook 'org-save-all-org-buffers)
+  (add-to-list 'org-modules 'org-habit)
+  (setq org-agenda-files (quote ("~/Dropbox/org"))
+        org-tags-match-list-sublevels (quote indented))
+)
+
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys)
+  (evil-org-set-key-theme '(navigation insert textobjects additional calendar))
+  (evil-set-initial-state 'org-agenda-mode 'normal)
+  )
 
 ;; Standard key bindings
 (global-set-key "\C-cl" 'org-store-link)
 ;;(global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
-
-(setq org-agenda-files (quote ("~/Dropbox/org")))
-(setq org-tags-match-list-sublevels (quote indented))
 
 ;; Custom Key Bindings
 ;;(global-set-key (kbd "<f12>") 'org-agenda)
@@ -50,12 +65,6 @@
 (global-set-key (kbd "C-s-<f12>") 'avj/save-then-publish)
 ;;(global-set-key (kbd "C-c c") 'org-capture)
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (local-set-key (kbd "<SPC>") nil)
-            (evil-org-mode)))
-(evil-org-set-key-theme '(navigation insert textobjects additional calendar))
-(evil-org-agenda-set-keys)
 ;; TODO: Org-mode specific keymaps using general
 (general-define-key
  :states 'motion
