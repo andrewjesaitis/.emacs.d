@@ -33,6 +33,13 @@
 ;; for some reason this form can't be in the config for the package
 (global-evil-colemak-basics-mode 1)
 
+;; set cursor style based on mode
+(setq evil-normal-state-cursor '(box "orchid")
+       evil-motion-state-cursor '(box "YellowGreen")
+       evil-insert-state-cursor '(bar "light gray")
+       evil-emacs-state-cursor '(bar "Red")
+       evil-visual-state-cursor '(box "#F86155"))
+
 ;; CUSTOMIZATIONS ::
 ;; Use a bar cursor
 (set-default 'cursor-type 'bar)
