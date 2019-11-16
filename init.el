@@ -138,6 +138,7 @@
 (load "setup-js.el")
 (load "setup-css.el")
 (load "setup-python.el")
+(load "setup-go.el")
 
 ;; Use and Load Custom file
 (setq custom-file "~/.emacs.d/customizations/custom.el")
