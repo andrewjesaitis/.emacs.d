@@ -46,7 +46,7 @@
 (use-package rainbow-delimiters
   :ensure t
   :config
-  (add-hook 'prog-mode-hook #'rainbow-mode))
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; edit html tags like sexps
 (use-package tagedit)
