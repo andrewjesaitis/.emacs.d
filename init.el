@@ -78,7 +78,9 @@
 (use-package org-plus-contrib
   :ensure t)
 (use-package company
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'company-mode))
 (use-package ag
   :ensure t)
 (use-package markdown-mode
