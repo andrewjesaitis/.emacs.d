@@ -144,4 +144,5 @@
 
 ;; Use and Load Custom file
 (setq custom-file "~/.emacs.d/customizations/custom.el")
-(load custom-file)
+;;(load custom-file)
+
