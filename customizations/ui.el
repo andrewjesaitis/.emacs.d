@@ -4,6 +4,28 @@
 ;; a matter of preference and may require some fiddling to match your
 ;; preferences
 
+;; themes
+
+(use-package color-theme-sanityinc-tomorrow
+  :ensure t)
+(use-package leuven-theme
+  :ensure t)
+
+(use-package circadian
+  :ensure t
+  :init
+  (setq circadian-themes '(
+                           ("7:00" . leuven)
+                           ("18:00" . color-theme-sanityinc-tomorrow-bright)
+                           ))
+  (circadian-setup))
+
+(defun avj/undo-themes (&rest _)
+  (mapc #'disable-theme custom-enabled-themes))
+
+(general-add-advice 'load-theme :before #'avj/undo-themes)
+
+
 ;; Turn off the menu bar at the top of each frame because it's distracting
 (menu-bar-mode -1)
 
