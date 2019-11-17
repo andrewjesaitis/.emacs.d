@@ -19,10 +19,45 @@
 (fringe-mode '(4 . 0))
 (global-git-gutter-mode +1)
 
+;; Install icons
+(use-package all-the-icons
+  :ensure t)
+
 ;; Configure the mode line
-(setq-default mode-line-format
-              '((:eval (propertize " %b" 'face 'mode-line-highlight))
-                " %l:%c  %m"))
+(use-package doom-modeline
+  :ensure t
+  :config
+  (doom-modeline-mode) 
+  (doom-modeline-def-segment iconic-emacs-modeline-starter
+    (list
+     ;; space on left (or - if term)
+     mode-line-front-space
+     ;; report multilingual input; e.g. U: for utf-8
+     mode-line-mule-info
+     ;; for emacsclient frame identification
+     mode-line-client
+     ;; ** if modified, -- if not, %% if RO, %- if RO and modified
+     mode-line-modified
+     ;; indicates a remote buffer
+     mode-line-remote
+     mode-line-frame-identification))
+
+  ;; replace modals section; not really a good alternative without defining a
+  ;; completely new modeline
+  (doom-modeline-def-segment modals
+    (doom-modeline-segment--iconic-emacs-modeline-starter))
+
+  (setq global-mode-string
+        (list
+         ;; current group
+         '(:eval (when (fboundp 'fg-mode-line-string)
+                   (fg-mode-line-string)))
+         ;; show if clocked in to a heading
+         '(:eval (when (and (bound-and-true-p org-mode-line-string)
+                            (not (string= org-mode-line-string "")))
+                   (concat "Clock: <"
+                           (string-trim-left org-mode-line-string)
+                           "> "))))))
 
 ;; typography
 (setq-default line-spacing nil)
