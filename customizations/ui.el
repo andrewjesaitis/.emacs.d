@@ -3,22 +3,21 @@
 ;; commented out, and begin with the line "CUSTOMIZE". These are more
 ;; a matter of preference and may require some fiddling to match your
 ;; preferences
-
+ 
 ;; themes
 
-(use-package color-theme-sanityinc-tomorrow
-  :ensure t)
-(use-package leuven-theme
-  :ensure t)
+(use-package color-theme-sanityinc-tomorrow :ensure :defer)
+(use-package leuven-theme :ensure :defer)
 
 (use-package circadian
   :ensure t
   :init
-  (setq circadian-themes '(
-                           ("7:00" . leuven)
-                           ("18:00" . color-theme-sanityinc-tomorrow-bright)
-                           ))
-  (circadian-setup))
+  :config
+  (setq calendar-latitude 37.74)
+  (setq calendar-longitude -122.43)
+  (setq circadian-themes '((:sunrise . leuven)
+                           (:sunset  . color-theme-sanityinc-tomorrow-bright))))
+(circadian-setup)
 
 (defun avj/undo-themes (&rest _)
   (mapc #'disable-theme custom-enabled-themes))
@@ -48,30 +47,17 @@
 (use-package all-the-icons
   :ensure t)
 
+(use-package all-the-icons-ivy
+  :ensure t
+  :config
+  (all-the-icons-ivy-setup))
+
 ;; Configure the mode line
 (use-package doom-modeline
   :ensure t
+  :hook
+  (after-init . doom-modeline-mode)
   :config
-  (doom-modeline-mode) 
-  (doom-modeline-def-segment iconic-emacs-modeline-starter
-    (list
-     ;; space on left (or - if term)
-     mode-line-front-space
-     ;; report multilingual input; e.g. U: for utf-8
-     mode-line-mule-info
-     ;; for emacsclient frame identification
-     mode-line-client
-     ;; ** if modified, -- if not, %% if RO, %- if RO and modified
-     mode-line-modified
-     ;; indicates a remote buffer
-     mode-line-remote
-     mode-line-frame-identification))
-
-  ;; replace modals section; not really a good alternative without defining a
-  ;; completely new modeline
-  (doom-modeline-def-segment modals
-    (doom-modeline-segment--iconic-emacs-modeline-starter))
-
   (setq global-mode-string
         (list
          ;; current group
