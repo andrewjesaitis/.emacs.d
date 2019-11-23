@@ -27,6 +27,9 @@
   :config
   (ivy-mode))
 
+(use-package ivy-hydra
+    :ensure t)
+
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
 (global-set-key (kbd "C-c c") 'counsel-compile)
 
