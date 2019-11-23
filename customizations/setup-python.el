@@ -1,3 +1,6 @@
+;; Python3
+(setq python-shell-interpreter "python3")
+
 ;;enable elpy
 (elpy-enable)
 (setq elpy-rpc-ignored-buffer-size 10024000)
