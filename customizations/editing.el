@@ -92,7 +92,7 @@
 ;; http://www.emacswiki.org/emacs/Yasnippet
 (use-package yasnippet
   :config
-  (yas-global-mode 1))
+  (add-hook 'prog-mode-hook #'yas-minor-mode))
 
 ;; comments
 (defun toggle-comment-on-line ()
