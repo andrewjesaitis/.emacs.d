@@ -100,7 +100,9 @@
 (use-package scss-mode
   :ensure t)
 (use-package ws-butler
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'ws-butler-mode))
 
 ;;;;
 ;; Customization
