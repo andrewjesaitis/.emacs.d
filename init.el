@@ -96,8 +96,6 @@
   :ensure t)
 (use-package scss-mode
   :ensure t)
-(use-package color-theme-sanityinc-tomorrow
-  :ensure t)
 (use-package ws-butler
   :ensure t)
 
