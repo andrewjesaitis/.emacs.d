@@ -12,3 +12,7 @@
   :ensure t)
 (use-package godoctor
   :ensure t)
+(use-package go-eldoc
+      :ensure t
+      :config
+      (add-hook 'go-mode-hook 'go-eldoc-setup))
