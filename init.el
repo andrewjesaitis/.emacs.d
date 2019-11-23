@@ -70,7 +70,10 @@
 (use-package general
   :ensure t)
 (use-package which-key
-  :ensure t)
+  :ensure t
+  :diminish which-key-mode
+  :config
+  (add-hook 'after-init-hook 'which-key-mode))
 (use-package evil-org
   :ensure t)
 (use-package counsel
