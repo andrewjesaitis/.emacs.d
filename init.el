@@ -82,8 +82,11 @@
   :ensure t)
 (use-package company
   :ensure t
+  :diminish
   :config
-  (add-hook 'prog-mode-hook #'company-mode))
+  (add-hook 'after-init-hook 'global-company-mode)
+  (setq company-idle-delay t
+        company-dabbrev-downcase nil))
 (use-package ag
   :ensure t)
 (use-package markdown-mode
