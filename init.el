@@ -59,7 +59,7 @@
 (use-package flycheck
   :ensure t
   :config
-  (add-hook 'web-mode-hook #'global-flycheck-mode)
+  (add-hook 'prog-mode-hook #'global-flycheck-mode)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (setq-default flycheck-temp-prefix ".flycheck")
   (setq-default flycheck-disabled-checkers
