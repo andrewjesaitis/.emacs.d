@@ -85,7 +85,7 @@
   :diminish
   :config
   (add-hook 'after-init-hook 'global-company-mode)
-  (setq company-idle-delay t
+  (setq company-idle-delay .5
         company-dabbrev-downcase nil))
 (use-package ag
   :ensure t)
@@ -103,6 +103,60 @@
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'ws-butler-mode))
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
+
+(use-package treemacs-evil
+  :after treemacs evil
+  :ensure t)
+
+(use-package treemacs-projectile
+  :after treemacs projectile
+  :ensure t)
+
+(use-package treemacs-magit
+  :after treemacs magit
+  :ensure t)
+
+;; optionally
+
+(use-package lsp-mode
+  :hook (go-mode . lsp-deferred)
+  :commands (lsp  lsp-deferred))
+
+(use-package lsp-ui
+  :ensure t
+  :after lsp-mode
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-delay 1
+        lsp-ui-sideline-delay 2))
+;; (use-package company-lsp
+;;   :ensure t
+;;   :after lsp-mode company-mode
+;;   :commands company-lsp)
+
+;; (use-package lsp-ivy
+;;   :ensure t
+;;   :after lsp-mode
+;;   :commands lsp-ivy-workspace-symbol)
+;; (
+(use-package lsp-treemacs
+  :ensure t
+  :after lsp-mode
+  :commands lsp-treemacs-errors-list)
+;; optionally if you want to use debugger
+(use-package dap-mode
+  :ensure t
+  :after lsp-mode
+  :config
+  '(require dap-go)
+  (dap-go-setup))
+
 
 ;;;;
 ;; Customization
