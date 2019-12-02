@@ -73,7 +73,7 @@
   :ensure t
   :diminish which-key-mode
   :config
-  (add-hook 'after-init-hook 'which-key-mode))
+  (add-hook 'after-init-hook #'which-key-mode))
 (use-package evil-org
   :ensure t)
 (use-package counsel
