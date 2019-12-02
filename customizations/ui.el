@@ -26,7 +26,9 @@
 
 
 ;; Font
-(set-default-font "Source Code Pro")
+;;(set-default-font "Source Code Pro")
+(set-default-font "Fantasque Sans Mono")
+
 ;; Split window vertically by default
 (setq split-width-threshold 0)
 (setq split-height-threshold nil)
