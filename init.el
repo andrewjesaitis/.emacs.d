@@ -97,8 +97,6 @@
   :ensure t)
 (use-package yaml-mode
   :ensure t)
-(use-package elpy
-  :ensure t)
 (use-package scss-mode
   :ensure t)
 (use-package ws-butler
