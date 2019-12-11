@@ -125,8 +125,11 @@
 ;; optionally
 
 (use-package lsp-mode
-  :hook (go-mode . lsp-deferred)
-  :commands (lsp  lsp-deferred))
+  :hook
+  (go-mode . lsp-deferred)
+  (python-mode . lsp-deferred)
+  :commands
+  (lsp  lsp-deferred))
 
 (use-package lsp-ui
   :ensure t
