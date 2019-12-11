@@ -1,5 +1,7 @@
 *~
 .DS_store
+.lsp-session-*
+.org-id-locations
 .recentf
 .smex-items
 auto-save-list
@@ -7,9 +9,14 @@ backups
 bookmarks
 cider-history
 elpa
+elpy
 ido.last
 network-security.data
 places
 projectile-bookmarks.eld
 projectile.cache
+recentf
+session.*
 tramp
+transient
+url
