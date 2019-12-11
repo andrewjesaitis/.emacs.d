@@ -40,6 +40,9 @@
        evil-emacs-state-cursor '(bar "Red")
        evil-visual-state-cursor '(box "#F86155"))
 
+(use-package evil-escape
+  :ensure t)
+
 ;; CUSTOMIZATIONS ::
 ;; Use a bar cursor
 (set-default 'cursor-type 'bar)
@@ -127,5 +130,6 @@
 
 ;; Trim touched white-space on save in programming buffers
 (use-package ws-butler
+  :ensure t
   :init
   (add-hook 'prog-mode-hook #'ws-butler-mode))

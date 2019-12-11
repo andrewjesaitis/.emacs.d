@@ -26,6 +26,12 @@
   (evil-set-initial-state 'org-agenda-mode 'normal)
   )
 
+(use-package org-plus-contrib
+  :ensure t)
+
+(use-package evil-org
+  :ensure t)
+
 ;; Standard key bindings
 (global-set-key "\C-cl" 'org-store-link)
 ;;(global-set-key "\C-ca" 'org-agenda)

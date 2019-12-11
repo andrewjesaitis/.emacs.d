@@ -35,13 +35,6 @@
   (add-hook 'lisp-mode-hook #'paredit-mode)
   (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode))
 
-
-(use-package exec-path-from-shell
-  :ensure t
-  :config
-  (when (memq window-system '(mac ns))
-    (exec-path-from-shell-initialize)))
-
 ;; colorful parenthesis matching
 (use-package rainbow-delimiters
   :ensure t
@@ -66,21 +59,6 @@
   (setq-default flycheck-disabled-checkers
 		(append flycheck-disabled-checkers
 			'(json-jsonlist))))
-(use-package evil-escape
-  :ensure t)
-(use-package general
-  :ensure t)
-(use-package which-key
-  :ensure t
-  :diminish which-key-mode
-  :init
-  (add-hook 'after-init-hook #'which-key-mode))
-(use-package evil-org
-  :ensure t)
-(use-package counsel
-  :ensure t)
-(use-package org-plus-contrib
-  :ensure t)
 (use-package company
   :ensure t
   :diminish
@@ -89,8 +67,6 @@
   :config
   (setq company-idle-delay .5
         company-dabbrev-downcase nil))
-(use-package ag
-  :ensure t)
 (use-package markdown-mode
   :ensure t)
 (use-package dockerfile-mode
@@ -99,30 +75,6 @@
   :ensure t)
 (use-package scss-mode
   :ensure t)
-(use-package ws-butler
-  :ensure t
-  :init
-  (add-hook 'prog-mode-hook #'ws-butler-mode))
-(use-package treemacs
-  :ensure t
-  :defer t
-  :init
-  (with-eval-after-load 'winum
-    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window)))
-
-(use-package treemacs-evil
-  :after treemacs evil
-  :ensure t)
-
-(use-package treemacs-projectile
-  :after treemacs projectile
-  :ensure t)
-
-(use-package treemacs-magit
-  :after treemacs magit
-  :ensure t)
-
-;; optionally
 
 (use-package lsp-mode
   :hook

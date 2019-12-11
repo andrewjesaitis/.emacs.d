@@ -13,6 +13,21 @@
   (setq recentf-save-file (concat user-emacs-directory ".recentf")
         recentf-max-menu-items 40))
 
+;; Keybinding Packages
+(use-package general
+  :ensure t)
+(use-package which-key
+  :ensure t
+  :diminish which-key-mode
+  :init
+  (add-hook 'after-init-hook #'which-key-mode))
+
+;; counsel
+(use-package counsel
+  :ensure t)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "C-c c") 'counsel-compile)
+
 ;; ivy
 (use-package ivy
   :ensure t
@@ -30,10 +45,13 @@
 (use-package ivy-hydra
     :ensure t)
 
-(global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "C-c c") 'counsel-compile)
 (global-set-key (kbd "C-<") 'flycheck-previous-error)
 (global-set-key (kbd "C->") 'flycheck-next-error)
+
+
+;; silversurfer search
+(use-package ag
+  :ensure t)
 
 ;; projectile everywhere!
 (use-package projectile
