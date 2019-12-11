@@ -91,7 +91,7 @@
 ;; yasnippet
 ;; http://www.emacswiki.org/emacs/Yasnippet
 (use-package yasnippet
-  :config
+  :init
   (add-hook 'prog-mode-hook #'yas-minor-mode))
 
 ;; comments
@@ -127,5 +127,5 @@
 
 ;; Trim touched white-space on save in programming buffers
 (use-package ws-butler
-  :config
+  :init
   (add-hook 'prog-mode-hook #'ws-butler-mode))

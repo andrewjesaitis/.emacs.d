@@ -1,7 +1,7 @@
 ;;;;
 ;; Packages
 ;;;;
-;;b(server-start)
+(server-start)
 (setq load-prefer-newer t)
 ;;(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 ;; Define package repositories
@@ -45,7 +45,7 @@
 ;; colorful parenthesis matching
 (use-package rainbow-delimiters
   :ensure t
-  :config
+  :init
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; edit html tags like sexps
@@ -58,8 +58,9 @@
   :ensure t)
 (use-package flycheck
   :ensure t
-  :config
+  :init
   (add-hook 'prog-mode-hook #'global-flycheck-mode)
+  :config
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (setq-default flycheck-temp-prefix ".flycheck")
   (setq-default flycheck-disabled-checkers
@@ -72,7 +73,7 @@
 (use-package which-key
   :ensure t
   :diminish which-key-mode
-  :config
+  :init
   (add-hook 'after-init-hook #'which-key-mode))
 (use-package evil-org
   :ensure t)
@@ -83,8 +84,9 @@
 (use-package company
   :ensure t
   :diminish
-  :config
+  :init
   (add-hook 'after-init-hook 'global-company-mode)
+  :config
   (setq company-idle-delay .5
         company-dabbrev-downcase nil))
 (use-package ag
@@ -101,7 +103,7 @@
   :ensure t)
 (use-package ws-butler
   :ensure t
-  :config
+  :init
   (add-hook 'prog-mode-hook #'ws-butler-mode))
 (use-package treemacs
   :ensure t
@@ -138,16 +140,17 @@
   :config
   (setq lsp-ui-doc-delay 1
         lsp-ui-sideline-delay 2))
-;; (use-package company-lsp
-;;   :ensure t
-;;   :after lsp-mode company-mode
-;;   :commands company-lsp)
 
-;; (use-package lsp-ivy
-;;   :ensure t
-;;   :after lsp-mode
-;;   :commands lsp-ivy-workspace-symbol)
-;; (
+(use-package company-lsp
+  :ensure t
+  :after lsp-mode company-mode
+  :commands company-lsp)
+
+(use-package lsp-ivy
+  :ensure t
+  :after lsp-mode
+  :commands lsp-ivy-workspace-symbol)
+
 (use-package lsp-treemacs
   :ensure t
   :after lsp-mode
@@ -219,4 +222,3 @@
 ;; Use and Load Custom file
 (setq custom-file "~/.emacs.d/customizations/custom.el")
 ;;(load custom-file)
-
