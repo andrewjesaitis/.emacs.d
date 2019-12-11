@@ -46,7 +46,7 @@
 
 ;; Key binding to use "hippie expand" for text autocompletion
 ;; http://www.emacswiki.org/emacs/HippieExpand
-(global-set-key (read-kbd-macro "<C-RET>") 'hippie-expand)
+(global-set-key (kbd "C-n") 'hippie-expand)
 
 ;; Lisp-friendly hippie expand
 (setq hippie-expand-try-functions-list

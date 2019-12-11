@@ -160,7 +160,18 @@
   '(require dap-go)
   (dap-go-setup))
 
+(general-define-key
+ :states 'motion
+ :keymaps 'lsp-mode-map
+ :prefix "SPC"
+   ""     nil
 
+   "ld"   #'lsp-describe-thing-at-point
+   "lr"   #'lsp-rename
+   "lf"   '(:ignore t :which-key "Find ")
+   "lfr"  #'lsp-find-references
+   "lfi"  #'lsp-find-implementation
+   "lft"  #'lsp-find-type-definition)
 ;;;;
 ;; Customization
 ;;;;

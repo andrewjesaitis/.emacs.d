@@ -32,6 +32,8 @@
 
 (global-set-key (kbd "<f1> l") 'counsel-find-library)
 (global-set-key (kbd "C-c c") 'counsel-compile)
+(global-set-key (kbd "C-<") 'flycheck-previous-error)
+(global-set-key (kbd "C->") 'flycheck-next-error)
 
 ;; projectile everywhere!
 (use-package projectile
@@ -48,7 +50,6 @@
    "m" 'magit-status
    "p" 'projectile-command-map
    "s" 'swiper
-   "l" 'counsel-locate
    "a" 'counsel-ag
    "b" '(:ignore t :which-key "buffer")
    "bb" 'ibuffer
