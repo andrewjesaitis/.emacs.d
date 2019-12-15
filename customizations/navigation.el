@@ -48,6 +48,13 @@
 (global-set-key (kbd "C-<") 'flycheck-previous-error)
 (global-set-key (kbd "C->") 'flycheck-next-error)
 
+(setq user-init-file "~/.emacs.d/init.el")
+
+(defun avj/find-user-init-file ()
+  "Edit the `user-init-file', in another window."
+  (interactive)
+  (find-file-other-window user-init-file))
+
 
 ;; silversurfer search
 (use-package ag
@@ -77,6 +84,7 @@
    "f" '(:ignore t :which-key "files")
    "ff" 'counsel-find-file
    "fg" 'rgrep
+   "fi" 'avj/find-user-init-file
    "fs" 'save-buffer
    "h" '(:ignore t :which-key "help")
    "hd" '(:ignore t :which-key "help-describe")"hdb" 'describe-bindings
