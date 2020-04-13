@@ -20,7 +20,9 @@
   :config
   (add-hook 'js-mode-hook #'tern-mode))
 (use-package json-mode
-  :ensure t)
+  :ensure t
+  :config
+  (setq js-indent-level 2))
 (use-package tern
   :ensure t
   :config
