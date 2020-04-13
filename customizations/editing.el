@@ -136,3 +136,7 @@
   :ensure t
   :init
   (add-hook 'prog-mode-hook #'ws-butler-mode))
+
+
+;; Associate `.query` extension with sql-mode
+(add-to-list 'auto-mode-alist '("\\.query\\'" . sql-mode))
