@@ -68,6 +68,9 @@
 ;; Highlight current line
 (global-hl-line-mode 1)
 
+;; Hide show for all programming modes
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+
 ;; Don't use hard tabs
 (setq-default indent-tabs-mode nil)
 
