@@ -7,7 +7,6 @@
   (require 'org-checklist)
   (local-set-key (kbd "<SPC>") nil)
   (add-hook 'auto-save-hook 'org-save-all-org-buffers)
-  (add-to-list 'org-modules 'org-habit)
   (setq org-agenda-files (quote ("~/Dropbox/org"))
         org-tags-match-list-sublevels (quote indented))
 )
@@ -207,9 +206,7 @@
               ("w" "org-protocol" entry (file "~/Dropbox/org/inbox.org")
                "* TODO Review %c\n%U\n" :immediate-finish t)
               ("m" "Meeting" entry (file "~/Dropbox/org/inbox.org")
-               "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-              ("h" "Habit" entry (file "~/Dropbox/org/inbox.org")
-               "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
+               "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t))))
 
 ;; Remove empty LOGBOOK drawers on clock out
 (defun avj/remove-empty-drawer-on-clock-out ()
@@ -248,11 +245,7 @@
       (quote (("N" "Notes" tags "NOTE"
                ((org-agenda-overriding-header "Notes")
                 (org-tags-match-list-sublevels t)))
-              ("h" "Habits" tags-todo "STYLE=\"habit\""
-               ((org-agenda-overriding-header "Habits")
-                (org-agenda-sorting-strategy
-                 '(todo-state-down effort-up category-keep))))
-              (" " "Agenda"
+              ("m" "My View"
                ((agenda "" nil)
                 (tags "INBOX"
                       ((org-agenda-overriding-header "Tasks to Refile")
@@ -273,7 +266,7 @@
                                                                   (if avj/hide-scheduled-and-waiting-next-tasks
                                                                       ""
                                                                     " (including WAITING and SCHEDULED tasks)")))
-                            (org-agenda-skip-function 'avj/skip-projects-and-habits-and-single-tasks)
+                            (org-agenda-skip-function 'avj/skip-projects-and-single-tasks)
                             (org-tags-match-list-sublevels t)
                             (org-agenda-todo-ignore-scheduled avj/hide-scheduled-and-waiting-next-tasks)
                             (org-agenda-todo-ignore-deadlines avj/hide-scheduled-and-waiting-next-tasks)
@@ -461,7 +454,7 @@ Callers of this function already widen the buffer view."
 
 (defun avj/skip-non-tasks ()
   "Show non-project tasks.
-Skip project and sub-project tasks, habits, and project related tasks."
+Skip project and sub-project tasks, and project related tasks."
   (save-restriction
     (widen)
     (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
@@ -471,7 +464,7 @@ Skip project and sub-project tasks, habits, and project related tasks."
        (t
         next-headline)))))
 
-(defun avj/skip-project-trees-and-habits ()
+(defun avj/skip-project-trees()
   "Skip trees that are projects"
   (save-restriction
     (widen)
@@ -479,19 +472,15 @@ Skip project and sub-project tasks, habits, and project related tasks."
       (cond
        ((avj/is-project-p)
         subtree-end)
-       ((org-is-habit-p)
-        subtree-end)
        (t
         nil)))))
 
-(defun avj/skip-projects-and-habits-and-single-tasks ()
-  "Skip trees that are projects, tasks that are habits, single non-project tasks"
+(defun avj/skip-projects-and-single-tasks ()
+  "Skip trees that are projects, tasks that are single non-project tasks"
   (save-restriction
     (widen)
     (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
       (cond
-       ((org-is-habit-p)
-        next-headline)
        ((and avj/hide-scheduled-and-waiting-next-tasks
              (member "WAITING" (org-get-tags-at)))
         next-headline)
@@ -504,8 +493,8 @@ Skip project and sub-project tasks, habits, and project related tasks."
 
 (defun avj/skip-project-tasks-maybe ()
   "Show tasks related to the current restriction.
-When restricted to a project, skip project and sub project tasks, habits, NEXT tasks, and loose tasks.
-When not restricted, skip project and sub-project tasks, habits, and project related tasks."
+When restricted to a project, skip project and sub project tasks, NEXT tasks, and loose tasks.
+When not restricted, skip project and sub-project tasks, and project related tasks."
   (save-restriction
     (widen)
     (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
@@ -514,8 +503,6 @@ When not restricted, skip project and sub-project tasks, habits, and project rel
       (cond
        ((avj/is-project-p)
         next-headline)
-       ((org-is-habit-p)
-        subtree-end)
        ((and (not limit-to-project)
              (avj/is-project-subtree-p))
         subtree-end)
@@ -528,14 +515,12 @@ When not restricted, skip project and sub-project tasks, habits, and project rel
 
 (defun avj/skip-project-tasks ()
   "Show non-project tasks.
-Skip project and sub-project tasks, habits, and project related tasks."
+Skip project and sub-project tasks, and project related tasks."
   (save-restriction
     (widen)
     (let* ((subtree-end (save-excursion (org-end-of-subtree t))))
       (cond
        ((avj/is-project-p)
-        subtree-end)
-       ((org-is-habit-p)
         subtree-end)
        ((avj/is-project-subtree-p)
         subtree-end)
@@ -544,7 +529,7 @@ Skip project and sub-project tasks, habits, and project related tasks."
 
 (defun avj/skip-non-project-tasks ()
   "Show project tasks.
-Skip project and sub-project tasks, habits, and loose non-project tasks."
+Skip project and sub-project tasks, and loose non-project tasks."
   (save-restriction
     (widen)
     (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
@@ -552,8 +537,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
       (cond
        ((avj/is-project-p)
         next-headline)
-       ((org-is-habit-p)
-        subtree-end)
        ((and (avj/is-project-subtree-p)
              (member (org-get-todo-state) (list "NEXT")))
         subtree-end)
@@ -562,15 +545,13 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
        (t
         nil)))))
 
-(defun avj/skip-projects-and-habits ()
-  "Skip trees that are projects and tasks that are habits"
+(defun avj/skip-projects-and()
+  "Skip trees that are projects"
   (save-restriction
     (widen)
     (let ((subtree-end (save-excursion (org-end-of-subtree t))))
       (cond
        ((avj/is-project-p)
-        subtree-end)
-       ((org-is-habit-p)
         subtree-end)
        (t
         nil)))))
@@ -730,7 +711,6 @@ as the default task."
                             ("@home" . ?H)
                             (:endgroup)
                             ("WAITING" . ?w)
-                            ("HABITS" . ?h)
                             ("PERSONAL" . ?P)
                             ("ZYMERGEN" . ?Z)
                             ("NOTE" . ?n)
