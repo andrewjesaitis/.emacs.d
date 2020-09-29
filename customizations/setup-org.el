@@ -542,8 +542,8 @@ Skip project and sub-project tasks, and loose non-project tasks."
 ; Tags with fast selection keys
 (setq org-tag-alist (quote ((:startgroup)
                             ("@errand" . ?e)
-                            ("@office" . ?o)
                             ("@home" . ?H)
+                            ("@boat" . ?B)
                             (:endgroup)
                             ("WAITING" . ?w)
                             ("PERSONAL" . ?P)
