@@ -142,7 +142,7 @@
 ;; TODO states
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-              (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)" "MEETING"))))
+              (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)"))))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
@@ -150,7 +150,6 @@
               ("DONE" :foreground "forest green" :weight bold)
               ("WAITING" :foreground "orange" :weight bold)
               ("CANCELLED" :foreground "forest green" :weight bold)
-              ("MEETING" :foreground "forest green" :weight bold)
               )))
 
 (setq org-use-fast-todo-selection t)
@@ -182,9 +181,7 @@
               ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
                "* %?\n%U\n")
               ("w" "org-protocol" entry (file "~/Dropbox/org/inbox.org")
-               "* TODO Review %c\n%U\n")
-              ("m" "Meeting" entry (file "~/Dropbox/org/inbox.org")
-               "* MEETING with %? :MEETING:\n%U" ))))
+               "* TODO Review %c\n%U\n"))))
 
 ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
