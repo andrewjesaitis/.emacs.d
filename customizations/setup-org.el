@@ -170,7 +170,7 @@
 ;; I use C-c c to start capture mode
 ;;(global-set-key (kbd "C-c c") 'org-capture)
 
-;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
+;; Capture templates
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/Dropbox/org/inbox.org")
                "* TODO %?\n%U\n%a\n")
@@ -179,9 +179,7 @@
               ("n" "note" entry (file "~/Dropbox/org/inbox.org")
                "* %? :NOTE:\n%U\n%a\n")
               ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
-               "* %?\n%U\n")
-              ("w" "org-protocol" entry (file "~/Dropbox/org/inbox.org")
-               "* TODO Review %c\n%U\n"))))
+               "* %?\n%U\n"))))
 
 ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
