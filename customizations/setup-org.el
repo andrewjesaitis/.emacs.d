@@ -49,8 +49,6 @@
 (global-set-key (kbd "<f9> g") 'gnus)
 (global-set-key (kbd "<f9> h") 'avj/hide-other)
 (global-set-key (kbd "<f9> n") 'avj/toggle-next-task-display)
-;;(global-set-key (kbd "<f9> I") 'avj/punch-in)
-;;(global-set-key (kbd "<f9> O") 'avj/punch-out)
 (global-set-key (kbd "<f9> o") 'avj/make-org-scratch)
 (global-set-key (kbd "<f9> r") 'boxquote-region)
 (global-set-key (kbd "<f9> s") 'avj/switch-to-scratch)
@@ -60,13 +58,10 @@
 
 (global-set-key (kbd "<f9> v") 'visible-mode)
 (global-set-key (kbd "<f9> l") 'org-toggle-link-display)
-;;(global-set-key (kbd "<f9> SPC") 'avj/clock-in-last-task)
 (global-set-key (kbd "C-<f9>") 'previous-buffer)
 (global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
 (global-set-key (kbd "C-x n r") 'narrow-to-region)
 (global-set-key (kbd "C-<f10>") 'next-buffer)
-;;(global-set-key (kbd "<f11>") 'org-clock-goto)
-;;(global-set-key (kbd "C-<f11>") 'org-clock-in)
 (global-set-key (kbd "C-s-<f12>") 'avj/save-then-publish)
 ;;(global-set-key (kbd "C-c c") 'org-capture)
 
@@ -77,18 +72,8 @@
  :prefix "SPC"
    "" nil
  
-   "oc"  '(:ignore t :which-key "Clock")
-   "occ" 'avj/insert-custom-clock-entry
-   "ocg" 'org-clock-goto
-   "oci" 'org-clock-in
-   "ocl" 'avj/clock-in-last-task
-   "oco" 'org-clock-out
-   "ocp"  '(:ignore t :which-key "Punch clock")
-   "ocpi" 'avj/punch-in
-   "ocpo" 'avj/punch-out
    "otd"   'org-deadline
    "oe"   '(:ignore t :which-key "Effort")
-   "oem"  'org-clock-modify-effor-estimate
    "oes"  'org-set-effort
    "op"   'org-priority
    "or"   'org-refile
@@ -108,11 +93,6 @@
  :prefix "SPC"
    "" nil
  
-   "oc"  '(:ignore t :which-key "Clocking")
-   "ocg" 'org-agenda-clock-goto
-   "oci" 'org-agenda-clock-in
-   "oco" 'org-agenda-clock-out
-   "ocr" 'org-agenda-clockreport-mode
    "od"  'org-agenda-deadline
    "of"  '(:ignore t :which-key "Filter")
    "oft" 'org-agenda-filter-by-tag
@@ -196,26 +176,17 @@
 ;; Capture templates for: TODO tasks, Notes, appointments, phone calls, meetings, and org-protocol
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/Dropbox/org/inbox.org")
-               "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+               "* TODO %?\n%U\n%a\n")
               ("r" "respond" entry (file "~/Dropbox/org/inbox.org")
-               "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+               "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
               ("n" "note" entry (file "~/Dropbox/org/inbox.org")
-               "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+               "* %? :NOTE:\n%U\n%a\n")
               ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
-               "* %?\n%U\n" :clock-in t :clock-resume t)
+               "* %?\n%U\n")
               ("w" "org-protocol" entry (file "~/Dropbox/org/inbox.org")
-               "* TODO Review %c\n%U\n" :immediate-finish t)
+               "* TODO Review %c\n%U\n")
               ("m" "Meeting" entry (file "~/Dropbox/org/inbox.org")
-               "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t))))
-
-;; Remove empty LOGBOOK drawers on clock out
-(defun avj/remove-empty-drawer-on-clock-out ()
-  (interactive)
-  (save-excursion
-    (beginning-of-line 0)
-    (org-remove-empty-drawer-at (point))))
-
-(add-hook 'org-clock-out-hook 'avj/remove-empty-drawer-on-clock-out 'append)
+               "* MEETING with %? :MEETING:\n%U" ))))
 
 ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
@@ -563,51 +534,6 @@ Skip project and sub-project tasks, and loose non-project tasks."
         nil
       next-headline)))
 
-;; Clocking
-;;
-;; Resume clocking task when emacs is restarted
-(org-clock-persistence-insinuate)
-;;
-;; Show lot of clocking history so it's easy to pick items off the C-F11 list
-(setq org-clock-history-length 23)
-;; Resume clocking task on clock-in if the clock is open
-(setq org-clock-in-resume t)
-;; Change tasks to NEXT when clocking in
-(setq org-clock-in-switch-to-state 'avj/clock-in-to-next)
-;; Separate drawers for clocking and logs
-(setq org-drawers (quote ("PROPERTIES" "LOGBOOK")))
-;; Save clock data and state changes and notes in the LOGBOOK drawer
-(setq org-clock-into-drawer t)
-;; Sometimes I change tasks I'm clocking quickly - this removes clocked tasks with 0:00 duration
-(setq org-clock-out-remove-zero-time-clocks t)
-;; Clock out when moving task to a done state
-(setq org-clock-out-when-done t)
-;; Save the running clock and all clock history when exiting Emacs, load it on startup
-(setq org-clock-persist t)
-;; Do not prompt to resume an active clock
-(setq org-clock-persist-query-resume nil)
-;; Enable auto clock resolution for finding open clocks
-(setq org-clock-auto-clock-resolution (quote when-no-clock-is-running))
-;; Include current clocking task in clock reports
-(setq org-clock-report-include-clocking-task t)
-;; Persist clockfile to dropbox
-(setq org-clock-persist-file "~/Dropbox/org/org-clock-save.el")
-
-(setq avj/keep-clock-running nil)
-
-(defun avj/clock-in-to-next (kw)
-  "Switch a task from TODO to NEXT when clocking in.
-Skips capture tasks, projects, and subprojects.
-Switch projects and subprojects from NEXT back to TODO"
-  (when (not (and (boundp 'org-capture-mode) org-capture-mode))
-    (cond
-     ((and (member (org-get-todo-state) (list "TODO"))
-           (avj/is-task-p))
-      "NEXT")
-     ((and (member (org-get-todo-state) (list "NEXT"))
-           (avj/is-project-p))
-      "TODO"))))
-
 (defun avj/find-project-task ()
   "Move point to the parent (project) task if any"
   (save-restriction
@@ -618,90 +544,6 @@ Switch projects and subprojects from NEXT back to TODO"
           (setq parent-task (point))))
       (goto-char parent-task)
       parent-task)))
-
-(defun avj/punch-in (arg)
-  "Start continuous clocking and set the default task to the
-selected task.  If no task is selected set the Organization task
-as the default task."
-  (interactive "p")
-  (setq avj/keep-clock-running t)
-  (if (equal major-mode 'org-agenda-mode)
-      ;;
-      ;; We're in the agenda
-      ;;
-      (let* ((marker (org-get-at-bol 'org-hd-marker))
-             (tags (org-with-point-at marker (org-get-tags-at))))
-        (if (and (eq arg 4) tags)
-            (org-agenda-clock-in '(16))
-          (avj/clock-in-organization-task-as-default)))
-    ;;
-    ;; We are not in the agenda
-    ;;
-    (save-restriction
-      (widen)
-      ; Find the tags on the current task
-      (if (and (equal major-mode 'org-mode) (not (org-before-first-heading-p)) (eq arg 4))
-          (org-clock-in '(16))
-        (avj/clock-in-organization-task-as-default)))))
-
-(defun avj/punch-out ()
-  (interactive)
-  (setq avj/keep-clock-running nil)
-  (when (org-clock-is-active)
-    (org-clock-out))
-  (org-agenda-remove-restriction-lock))
-
-(defun avj/clock-in-default-task ()
-  (save-excursion
-    (org-with-point-at org-clock-default-task
-      (org-clock-in))))
-
-(defun avj/clock-in-parent-task ()
-  "Move point to the parent (project) task if any and clock in"
-  (let ((parent-task))
-    (save-excursion
-      (save-restriction
-        (widen)
-        (while (and (not parent-task) (org-up-heading-safe))
-          (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
-            (setq parent-task (point))))
-        (if parent-task
-            (org-with-point-at parent-task
-              (org-clock-in))
-          (when avj/keep-clock-running
-            (avj/clock-in-default-task)))))))
-
-(defvar avj/organization-task-id "eb155a82-92b2-4f25-a3c6-0304591af2f9")
-
-(defun avj/clock-in-organization-task-as-default ()
-  (interactive)
-  (org-with-point-at (org-id-find avj/organization-task-id 'marker)
-    (org-clock-in '(16))))
-
-(defun avj/clock-out-maybe ()
-  (when (and avj/keep-clock-running
-             (not org-clock-clocking-in)
-             (marker-buffer org-clock-default-task)
-             (not org-clock-resolving-clocks-due-to-idleness))
-    (avj/clock-in-parent-task)))
-(add-hook 'org-clock-out-hook 'avj/clock-out-maybe 'append)
-
-(defun avj/insert-custom-clock-entry ()
-  (interactive)
-  (insert "CLOCK: ")
-  (org-time-stamp-inactive)
-  (insert "--")
-  ;; Inserts the current time by default.
-  (let ((current-prefix-arg '(4))) (call-interactively 'org-time-stamp-inactive))
-  (org-ctrl-c-ctrl-c))
-
-
-(setq org-time-stamp-rounding-minutes (quote (1 1)))
-(setq org-agenda-clock-consistency-checks
-      (quote (:max-duration "4:00"
-              :min-duration 0
-              :max-gap 0
-              :gap-ok-around ("4:00"))))
 
 ;; Tags
 ; Tags with fast selection keys
