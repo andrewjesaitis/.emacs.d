@@ -142,14 +142,13 @@
 ;; TODO states
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MEETING"))))
+              (sequence "WAITING(w@/!)" "|" "CANCELLED(c@/!)" "MEETING"))))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "red" :weight bold)
               ("NEXT" :foreground "blue" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAITING" :foreground "orange" :weight bold)
-              ("HOLD" :foreground "magenta" :weight bold)
               ("CANCELLED" :foreground "forest green" :weight bold)
               ("MEETING" :foreground "forest green" :weight bold)
               )))
@@ -161,11 +160,10 @@
 (setq org-todo-state-tags-triggers
       (quote (("CANCELLED" ("CANCELLED" . t))
               ("WAITING" ("WAITING" . t))
-              ("HOLD" ("WAITING") ("HOLD" . t))
-              (done ("WAITING") ("HOLD"))
-              ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-              ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-              ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+              (done ("WAITING"))
+              ("TODO" ("WAITING") ("CANCELLED"))
+              ("NEXT" ("WAITING") ("CANCELLED"))
+              ("DONE" ("WAITING") ("CANCELLED")))))
 
 (setq org-directory "~/Dropbox/org")
 (setq org-default-notes-file "~/Dropbox/org/inbox.org")
@@ -226,7 +224,7 @@
                             (org-agenda-skip-function 'avj/skip-non-stuck-projects)
                             (org-agenda-sorting-strategy
                              '(category-keep))))
-                (tags-todo "-HOLD-CANCELLED/!"
+                (tags-todo "-CANCELLED/!"
                            ((org-agenda-overriding-header "Projects")
                             (org-agenda-skip-function 'avj/skip-non-projects)
                             (org-tags-match-list-sublevels 'indented)
@@ -244,7 +242,7 @@
                             (org-agenda-todo-ignore-with-date avj/hide-scheduled-and-waiting-next-tasks)
                             (org-agenda-sorting-strategy
                              '(todo-state-down effort-up category-keep))))
-                (tags-todo "-INBOX-CANCELLED-WAITING-HOLD/!"
+                (tags-todo "-INBOX-CANCELLED-WAITING/!"
                            ((org-agenda-overriding-header (concat "Project Subtasks"
                                                                   (if avj/hide-scheduled-and-waiting-next-tasks
                                                                       ""
@@ -255,7 +253,7 @@
                             (org-agenda-todo-ignore-with-date avj/hide-scheduled-and-waiting-next-tasks)
                             (org-agenda-sorting-strategy
                              '(category-keep))))
-                (tags-todo "-INBOX-CANCELLED-WAITING-HOLD/!"
+                (tags-todo "-INBOX-CANCELLED-WAITING/!"
                            ((org-agenda-overriding-header (concat "Standalone Tasks"
                                                                   (if avj/hide-scheduled-and-waiting-next-tasks
                                                                       ""
@@ -266,7 +264,7 @@
                             (org-agenda-todo-ignore-with-date avj/hide-scheduled-and-waiting-next-tasks)
                             (org-agenda-sorting-strategy
                              '(category-keep))))
-                (tags-todo "-CANCELLED+WAITING|HOLD/!"
+                (tags-todo "-CANCELLED+WAITING/!"
                            ((org-agenda-overriding-header (concat "Waiting and Postponed Tasks"
                                                                   (if avj/hide-scheduled-and-waiting-next-tasks
                                                                       ""
