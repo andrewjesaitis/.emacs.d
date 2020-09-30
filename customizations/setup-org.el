@@ -163,8 +163,6 @@
 (setq org-capture-templates
       (quote (("t" "todo" entry (file "~/Dropbox/org/inbox.org")
                "* TODO %?\n%U\n%a\n")
-              ("r" "respond" entry (file "~/Dropbox/org/inbox.org")
-               "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
               ("n" "note" entry (file "~/Dropbox/org/inbox.org")
                "* %? :NOTE:\n%U\n%a\n"))))
 
