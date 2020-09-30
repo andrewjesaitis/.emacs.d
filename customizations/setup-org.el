@@ -49,7 +49,6 @@
 (global-set-key (kbd "<f9> g") 'gnus)
 (global-set-key (kbd "<f9> h") 'avj/hide-other)
 (global-set-key (kbd "<f9> n") 'avj/toggle-next-task-display)
-(global-set-key (kbd "<f9> o") 'avj/make-org-scratch)
 (global-set-key (kbd "<f9> r") 'boxquote-region)
 (global-set-key (kbd "<f9> s") 'avj/switch-to-scratch)
 
@@ -129,11 +128,6 @@
   (save-excursion
     (set-window-start (selected-window)
                       (window-start (selected-window)))))
-
-(defun avj/make-org-scratch ()
-  (interactive)
-  (find-file "/tmp/publish/scratch.org")
-  (gnus-make-directory "/tmp/publish"))
 
 (defun avj/switch-to-scratch ()
   (interactive)
