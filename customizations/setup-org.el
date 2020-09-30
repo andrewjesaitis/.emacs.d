@@ -166,9 +166,7 @@
               ("r" "respond" entry (file "~/Dropbox/org/inbox.org")
                "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n")
               ("n" "note" entry (file "~/Dropbox/org/inbox.org")
-               "* %? :NOTE:\n%U\n%a\n")
-              ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
-               "* %?\n%U\n"))))
+               "* %? :NOTE:\n%U\n%a\n"))))
 
 ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
 (setq org-refile-targets (quote ((nil :maxlevel . 9)
