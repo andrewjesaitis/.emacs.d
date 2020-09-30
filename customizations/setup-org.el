@@ -50,7 +50,6 @@
 (global-set-key (kbd "<f9> h") 'avj/hide-other)
 (global-set-key (kbd "<f9> n") 'avj/toggle-next-task-display)
 (global-set-key (kbd "<f9> r") 'boxquote-region)
-(global-set-key (kbd "<f9> s") 'avj/switch-to-scratch)
 
 (global-set-key (kbd "<f9> t") 'avj/insert-inactive-timestamp)
 (global-set-key (kbd "<f9> T") 'avj/toggle-insert-inactive-timestamp)
@@ -128,10 +127,6 @@
   (save-excursion
     (set-window-start (selected-window)
                       (window-start (selected-window)))))
-
-(defun avj/switch-to-scratch ()
-  (interactive)
-  (switch-to-buffer "*scratch*"))
 
 ;; TODO states
 (setq org-todo-keywords
