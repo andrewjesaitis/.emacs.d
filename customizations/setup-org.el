@@ -70,20 +70,20 @@
  :prefix "SPC"
    "" nil
  
-   "otd"   'org-deadline
+   "otd"  'org-deadline
    "oe"   '(:ignore t :which-key "Effort")
    "oes"  'org-set-effort
    "op"   'org-priority
    "or"   'org-refile
-   "ots"   'org-schedule
+   "ots"  'org-schedule
    "ot"   '(:ignore t :which-key "Timestamp")
    "ota"  'org-time-stamp
    "oti"  'org-time-stamp-inactive
    "ote"  'org-evaluate-time-range
    "ox"   'org-toggle-checkbox
-   "os"    '(:ignore t :which-key "todo State")
+   "os"   '(:ignore t :which-key "todo State")
    "os"   'org-todo
-   "oss"   'avj/org-todo-done)
+   "oss"  'avj/org-todo-done)
 
 (general-define-key
  :states 'motion
@@ -102,9 +102,9 @@
    "op"  'org-agenda-priority
    "or"  'org-agenda-refile
    "os"  'org-agenda-schedule
-   "os"   '(:ignore t :which-key "todo State")
-   "ost"  'org-todo
-   "oss"  'avj/org-todo-done)
+   "os"  '(:ignore t :which-key "todo State")
+   "ost" 'org-todo
+   "oss" 'avj/org-todo-done)
 
 (defun avj/org-todo-done ()
   (interactive)
