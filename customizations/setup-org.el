@@ -33,11 +33,12 @@
 
 ;; Standard key bindings
 (global-set-key "\C-cl" 'org-store-link)
-;;(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
 ;; Custom Key Bindings
-;;(global-set-key (kbd "<f12>") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "<f12>") 'org-agenda)
 (global-set-key (kbd "<f5>") 'avj/org-todo)
 (global-set-key (kbd "<S-f5>") 'avj/widen)
 (global-set-key (kbd "<f7>") 'avj/set-truncate-lines)
@@ -61,7 +62,6 @@
 (global-set-key (kbd "C-x n r") 'narrow-to-region)
 (global-set-key (kbd "C-<f10>") 'next-buffer)
 (global-set-key (kbd "C-s-<f12>") 'avj/save-then-publish)
-;;(global-set-key (kbd "C-c c") 'org-capture)
 
 ;; TODO: Org-mode specific keymaps using general
 (general-define-key
@@ -156,8 +156,6 @@
 (setq org-directory "~/Dropbox/org")
 (setq org-default-notes-file "~/Dropbox/org/inbox.org")
 
-;; I use C-c c to start capture mode
-;;(global-set-key (kbd "C-c c") 'org-capture)
 
 ;; Capture templates
 (setq org-capture-templates
