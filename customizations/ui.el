@@ -67,13 +67,8 @@
         (list
          ;; current group
          '(:eval (when (fboundp 'fg-mode-line-string)
-                   (fg-mode-line-string)))
-         ;; show if clocked in to a heading
-         '(:eval (when (and (bound-and-true-p org-mode-line-string)
-                            (not (string= org-mode-line-string "")))
-                   (concat "Clock: <"
-                           (string-trim-left org-mode-line-string)
-                           "> "))))))
+                   (fg-mode-line-string)))))
+  (setq column-number-mode t))
 
 ;; typography
 (setq-default line-spacing nil)
