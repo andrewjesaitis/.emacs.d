@@ -98,6 +98,7 @@
    "hn" 'view-emacs-news
    "j" '(:ignore t :which-key "jump")
    "jf" 'find-function
+   "jl" 'goto-line
    "jv" 'find-variable
    "o" '(:ignore t :which-key "org")
    "oa" 'org-agenda
