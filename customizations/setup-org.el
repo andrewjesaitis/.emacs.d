@@ -83,7 +83,8 @@
    "ox"   'org-toggle-checkbox
    "os"   '(:ignore t :which-key "todo State")
    "os"   'org-todo
-   "oss"  'avj/org-todo-done)
+   "oss"  'avj/org-todo-done
+   "oz"   'org-archive-subtree)
 
 (general-define-key
  :states 'motion
